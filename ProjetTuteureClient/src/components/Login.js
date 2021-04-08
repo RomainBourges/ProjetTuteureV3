@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Redirect } from "react-router"
 export class Login extends React.Component {
 
   constructor(props){
@@ -54,6 +53,10 @@ export class Login extends React.Component {
           this.setState({
             user:data.user
           })
+          this.context.router.push({
+            pathname: '/home',
+            state: {email: this.state.user.email}  
+        })
         }
 
         if(reponse.status === 400){
@@ -65,12 +68,6 @@ export class Login extends React.Component {
     }
 
   render(){
-     
-      if(this.state.user !==null){
-        
-        return (<Redirect to={{pathname: "/home", search: "", state: { user: this.state.user.email }}} />)
-      }
-      else{
           return ( 
           <div id="landing">
                       <div id="frame-container">
@@ -94,7 +91,6 @@ export class Login extends React.Component {
                     </div>
                   )
             }
-    }
 }
 
 export default Login;

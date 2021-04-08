@@ -18,7 +18,7 @@ export class MenuLists extends React.Component {
     return ( <nav id="menu-lists">
                 <span className="title">Mes listes</span>
                 <ul>
-                    <li><a href="/" title=""><div className="badge">25</div></a></li>
+                    <li><a href="/" title="">qzhefvbkuqzgefkqgzefkgqziefgqizegfiqzgefiuqgzeiqgefig<div className="badge">25</div></a></li>
                     <li><a href="/" title=""><div className="badge">3</div></a></li>
                 </ul>
                 <a href="/" id="menu-new-list" title="Nouvelle liste">Nouvelle liste</a>
