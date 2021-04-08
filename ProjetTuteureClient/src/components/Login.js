@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Redirect } from "react-router"
 export class Login extends React.Component {
 
   constructor(props){
@@ -6,6 +7,7 @@ export class Login extends React.Component {
     this.state = {
       email : "",
       password :"",
+      user:null,
       error : ""
     }
     this.handleChangeEmail=this.handleChangeEmail.bind(this)
@@ -49,7 +51,9 @@ export class Login extends React.Component {
         const data = await reponse.json()
 
         if(reponse.ok){
-          return data
+          this.setState({
+            user:data.user
+          })
         }
 
         if(reponse.status === 400){
@@ -61,28 +65,36 @@ export class Login extends React.Component {
     }
 
   render(){
-    return (  <div id="landing">
-                <div id="frame-container">
-                  <form action="" method="POST" className="text-start js-login-form"  id="frame">
-                    <label htmlFor="email">Adresse e-mail</label>
-                    <input type="email" id="email" name="email" className="form-control" onChange={this.handleChangeEmail}  placeholder="mail@provider.com" autoFocus ></input>
-                    <label htmlFor="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" className="form-control" onChange={this.handleChangePassword}  placeholder="password" ></input>
-                    <p className="error text-center">{this.state.error}</p>
-                    <button type="submit" onClick={this.handleSubmit}>
-                      Connexion
-                    </button>
-                    <div className="text-center">
-                      <a href="oubli_mdp.html" title="J'ai oublié mon mot de passe">J'ai oublié mon mot de passe</a>
+     
+      if(this.state.user !==null){
+        
+        return (<Redirect to={{pathname: "/home", search: "", state: { user: this.state.user.email }}} />)
+      }
+      else{
+          return ( 
+          <div id="landing">
+                      <div id="frame-container">
+                        <form action="" method="POST" className="text-start js-login-form"  id="frame">
+                          <label htmlFor="email">Adresse e-mail</label>
+                          <input type="email" id="email" name="email" className="form-control" onChange={this.handleChangeEmail}  placeholder="mail@provider.com" autoFocus ></input>
+                          <label htmlFor="password">Mot de passe</label>
+                          <input type="password" id="password" name="password" className="form-control" onChange={this.handleChangePassword}  placeholder="password" ></input>
+                          <p className="error text-center">{this.state.error}</p>
+                          <button type="submit" onClick={this.handleSubmit}>
+                            Connexion
+                          </button>
+                          <div className="text-center">
+                            <a href="oubli_mdp.html" title="J'ai oublié mon mot de passe">J'ai oublié mon mot de passe</a>
+                          </div>
+                          <div className="text-center">
+                            <a href="login.html" title="Pas encore de compte ? Inscrivez-vous !">Pas encore de compte ? Inscrivez-vous !</a>
+                          </div>
+                        </form>
+                      </div>
                     </div>
-                    <div className="text-center">
-                      <a href="login.html" title="Pas encore de compte ? Inscrivez-vous !">Pas encore de compte ? Inscrivez-vous !</a>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            )
-  }
+                  )
+            }
+    }
 }
 
 export default Login;
