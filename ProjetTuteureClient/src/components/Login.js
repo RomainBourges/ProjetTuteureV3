@@ -1,12 +1,14 @@
 import * as React from "react"
 import { Redirect } from "react-router-dom"
-import { useState } from "react";
+import { useState } from "react"
+import { useAuth } from "../context/auth";
 
 function Login(props){
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
+  const { setAuthTokens } = useAuth();
 
   function handleChangeEmail(e){
     setEmail(e.target.value);
@@ -36,6 +38,7 @@ function Login(props){
 
         if(reponse.ok){
           setUser(data.user);
+          
         }else{
           setError(data.message);
         }
@@ -43,10 +46,10 @@ function Login(props){
   }
 
   if(user !== null){
-    return (<Redirect to={{
-      pathname: "/home",
-      state: { user: 'moi' }
-    }} />)
+    setAuthTokens(user);
+    return (
+      <Redirect to="/home"/>
+    )
   }
     
   return ( 
