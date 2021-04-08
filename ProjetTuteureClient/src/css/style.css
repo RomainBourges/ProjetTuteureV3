@@ -1,0 +1,490 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+#landing {
+    display: flex;
+    align-items: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    background-color: #fdfdfd;
+    text-align: center;
+}
+
+a {
+    color: #ff7675;
+    text-decoration: none;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+textarea {
+    padding: 1rem;
+}
+
+button {
+    padding: 1rem 2rem;
+    background-color: #ff7675;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+#frame {
+    display: grid;
+    grid-row-gap: 1rem;
+}
+
+#frame-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 1rem;
+    margin: auto;
+}
+
+.error {
+    color: #D63031;
+}
+
+.success {
+    color: #27AE60;
+}
+
+#navbar {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #ff7675;
+    padding: 0 1rem;
+}
+
+#navbar .navbar {
+    justify-content: left;
+    color: #ffffff;
+}
+
+#open-menu-button {
+    margin-right: 1rem;
+}
+
+#open-menu-button,
+#close-menu-button {
+    position: relative;
+    height: 2rem;
+    width: 2rem;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    color: #ffffff;
+}
+
+#open-menu-button:before {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    top: 0;
+    left: 0;
+    background-image: url('../assets/menu.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    content: '';
+}
+
+#close-menu-button {
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+#close-menu-button:before {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    top: 0;
+    left: 0;
+    background-image: url('../assets/close.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    content: '';
+}
+
+#menu-modal {
+    display: none;
+    z-index: 3;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#menu
+{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100vh;
+    max-width: 400px;
+    padding: 2rem 1rem;
+    padding-bottom: 6rem;
+    background-color: #ffffff;
+    overflow-y: auto;
+    z-index: 4;
+}
+
+#content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+	left: 0;
+	padding-top: 4rem;
+}
+
+#user-email {
+    display: block;
+    position: relative;
+    padding-left: 2rem;
+    font-weight: bold;
+    color: #000000;
+}
+
+#user-email:before {
+    position: absolute;
+    left: 0;
+    top: -3px;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-image: url('../assets/home.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: '';
+}
+
+#menu-lists {
+    position: relative;
+    margin-top: 3rem;
+    border-top: 1px solid #adadad;
+    padding-top: 1rem;
+}
+
+#menu-lists .title {
+    position: absolute;
+    top: -0.9rem;
+    padding-right: 1rem;
+    background-color: #ffffff;
+    font-weight: bold;
+}
+
+#menu-lists ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#menu-lists ul a {
+    display: block;
+    position: relative;
+    padding: 0.5rem;
+    padding-right: 2.5rem;
+    color: #000000;
+}
+
+#menu-lists ul a:hover {
+    background-color: #ff7675;
+    color: #ffffff;
+}
+
+#menu-lists ul a .badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    bottom: 0;
+    height: 2rem;
+    width: 2rem;
+    background-color: #ff7675;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#menu-new-list {
+    position: relative;
+    padding-left: 2rem;
+    font-weight: bold;
+    color: #000000;
+}
+
+#menu-new-list:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 1rem;
+    width: 1rem;
+    background-image: url('../assets/plus.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: '';
+}
+
+#menu-bottom {
+    position: fixed;
+    max-width: 400px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+}
+
+#menu-bottom ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+#menu-bottom ul a {
+    display: block;
+    position: relative;
+    padding: 0.5rem 1rem;
+    padding-left: 2.5rem;
+    color: #000000;
+}
+
+#menu-bottom ul a:hover {
+    background-color: #ff7675;
+    color: #ffffff;
+}
+
+#menu-settings:before {
+    position: absolute;
+    top: 11px;
+    left: 1rem;
+    width: 1rem;
+    height: 1rem;
+    background-image: url('../assets/settings.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: '';
+}
+
+#menu-logout:before {
+    position: absolute;
+    top: 11px;
+    left: 1rem;
+    width: 1rem;
+    height: 1rem;
+    background-image: url('../assets/logout.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: '';
+}
+
+#tasks-list {
+    padding: 0;
+    list-style-type: none;
+}
+
+#tasks-list .task {
+    border-top: 1px solid #bdbdbd;
+    display: grid;
+    cursor: pointer;
+    grid-template-columns: 1rem 1fr 1rem;
+    grid-column-gap: 1rem;
+    padding: 1rem;
+}
+
+#tasks-list .task .icon {
+    grid-row: 1/3;
+    grid-column: 1/2;
+}
+
+#add-task {
+    display: grid;
+    grid-template-columns: 1rem 1fr;
+    grid-column-gap: 1rem;
+}
+
+#add-task .icon {
+    display: flex;
+    align-items: center;
+}
+
+#add-task .icon img {
+    width: 1rem;
+    height: 1rem;
+}
+
+#add-task input[type=text] {
+    border: none;
+}
+
+.icon .circle {
+    background-color: #f2f2f2;
+    border: 1px solid #adadad;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.icon .checked {
+    background-color: #ff7675;
+    border: 1px solid #ff7675;
+    background-image: url('../assets/check.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#tasks-list .task .name {
+    grid-row: 1/2;
+    grid-column: 2/3;
+}
+
+#tasks-list .task .done {
+    color: #666666;
+    text-decoration: line-through;
+}
+
+#tasks-list .task .delete {
+    grid-row: 1/3;
+    grid-column: 3/4;
+}
+
+#tasks-list .task ul {
+    padding: 0;
+    grid-row: 2/3;
+    grid-column: 2/3;
+    display: flex;
+    column-gap: 2rem;
+}
+
+#tasks-list .task ul li {
+    color: #666666;
+}
+
+#menu-task-edit {
+    display: none;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 400px;
+    background-color: #f5f5f5;
+    border-left: 1px solid #bdbdbd;
+    padding: 1rem;
+}
+
+.block {
+    display: grid;
+    grid-row-gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#menu-task-edit ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+#menu-task-edit .step-container {
+    display: grid;
+    grid-template-columns: 1fr 1rem;
+    grid-column-gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+#menu-task-edit .step {
+    border: 1px solid #adadad;
+    border-radius: 4px;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1rem 1fr;
+    grid-column-gap: 1rem;
+}
+
+#menu-task-edit .step-actions {
+    display: flex;
+    align-items: center;
+}
+
+#menu-task-edit .step-actions img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.double-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+button.optional {
+    background-color: #bdbdbd;
+}
+
+.settings-form {
+    display: grid;
+    grid-row-gap: 1rem;
+    margin-bottom: 1rem;
+   /* max-width: 100%; */;
+    margin-left: 10%;
+    margin-right: 10%;
+    max-width: 600px;
+}
+
+#settings-title {
+	display: none;
+    }
+
+
+@media screen and (min-width: 1200px) {
+    #navbar {
+	display: none;
+    }
+    
+    #menu {
+    background-color: #f5f5f5;
+    overflow-y: auto;
+    z-index: unset;
+    display: block;
+    }
+
+    #menu-bottom {
+	background-color: #f5f5f5;
+    }
+
+    #menu-lists .title {
+	background-color: #f5f5f5;
+    }
+
+    #close-menu-button {
+	display: none;
+    }
+
+    #content {
+    z-index: auto;
+	left: 400px;
+    padding: 2rem 1rem;
+    }
+
+    #settings-title {
+	display: block;
+    }
+
+    .settings-form {
+        max-width: 600px;
+    }
+}
+
+
