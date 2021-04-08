@@ -8,10 +8,11 @@ export class MenuBottom extends React.Component {
                     <a href="settings.html" id="menu-settings" title="Paramètres">Paramètres</a>
                     </li>
                     <li>
-                    <a href="" id="menu-logout" title="Déconnexion">Déconnexion</a>
+                    <a href="/" id="menu-logout" title="Déconnexion">Déconnexion</a>
                     </li>
                 </ul>
             </nav>
             )
   }
 }
+export default MenuBottom;

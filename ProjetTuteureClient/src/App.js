@@ -1,16 +1,17 @@
 import './App.css'
-import { Login } from "./components/Login.js"
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import Login from "./components/Login.js"
+import Home from "./components/Home.js"
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Switch>
-        <Route path="/" component={Login}/>
-        <Route path="/login" component={Login}/>
+        <Route exact path="/"><Login /></Route>
+        <Route exact path="/login"><Login /></Route>
+        <Route exact path="/home"><Home /></Route>
       </Switch>
-    </BrowserRouter>
-    
-  );
+    </Router> 
+  )
 }
 export default App;
