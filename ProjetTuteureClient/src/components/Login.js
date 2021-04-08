@@ -37,7 +37,6 @@ export class Login extends React.Component {
         })
       }
       else{
-
         let parameters = new URLSearchParams();
         parameters.append("email",this.state.email);
         parameters.append("password",this.state.password)

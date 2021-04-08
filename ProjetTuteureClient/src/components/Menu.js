@@ -10,7 +10,7 @@ export class Menu extends React.Component {
                 <MenuLists/>
                 <MenuBottom/>
             </div>
-            )
+          )
   }
 }
 
