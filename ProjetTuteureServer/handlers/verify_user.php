@@ -3,7 +3,7 @@ header("Content-Type: application/json; charset=UTF-8");
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST');
 header("Access-Control-Allow-Headers: X-Requested-With");
-
+http_response_code(400);
 //$post=json_decode($json, true));
 
 if(!isset($_POST["email"]) || !isset($_POST["password"])){
@@ -32,7 +32,7 @@ if(!$ok){
     ]);
     exit;
 }
-
+http_response_code(200);
 $_SESSION["user"] = $user;
 
 echo json_encode([

@@ -4,8 +4,9 @@ export class Home extends React.Component {
 
 
   render(){
-    return ( <Menu/>
-            )
+    return ( 
+      <Menu/>
+    )
   }
 }
 
