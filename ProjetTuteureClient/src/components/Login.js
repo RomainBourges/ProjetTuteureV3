@@ -33,11 +33,7 @@ function Login(props){
           method: 'POST',
           body: parameters
         };
-<<<<<<< HEAD
-        const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/verify_user', options)
-=======
         const reponse = await fetch('http://localhost:80/ProjetTuteureServer/verify_user', options)
->>>>>>> 92023ad5697cf7bf39cb93c9798b8ce9077bebd9
         const data = await reponse.json()
 
         if(reponse.ok){
