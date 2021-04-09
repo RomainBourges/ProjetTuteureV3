@@ -12,17 +12,16 @@ function MenuBottom(props){
   }
 
   return (
-    <nav id="menu-bottom">
+    <div id="menu-bottom">
       <ul>
-          <li>
+        <li>
           <a href="settings.html" id="menu-settings" title="Paramètres">Paramètres</a>
-          </li>
-          <li>
-            
+        </li>
+        <li>
           <NavLink to="/login" id="menu-logout" onClick={logOut} title="Déconnexion">Déconnexion</NavLink>
-          </li>
+        </li>
       </ul>
-    </nav>
+    </div>
     )
 }
 

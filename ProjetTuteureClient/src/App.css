@@ -1,6 +1,6 @@
-* {
+/** {
   box-sizing: border-box;
-}
+}*/
 
 html,
 body {
@@ -49,6 +49,11 @@ button {
   margin: auto;
 }
 
+.wrapper{
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+
 .error {
   color: #D63031;
 }
@@ -59,8 +64,8 @@ button {
 
 #navbar {
   display: block;
-  position: absolute;
-  z-index: 2;
+  /*position: absolute;*/
+  /*z-index: 2;*/
   top: 0;
   left: 0;
   right: 0;
@@ -79,7 +84,7 @@ button {
 
 #open-menu-button,
 #close-menu-button {
-  position: relative;
+  /*position: relative;*/
   height: 2rem;
   width: 2rem;
   padding: 0;
@@ -91,7 +96,7 @@ button {
 }
 
 #open-menu-button:before {
-  position: absolute;
+  /*position: absolute;*/
   width: 2rem;
   height: 2rem;
   top: 0;
@@ -108,7 +113,7 @@ button {
 }
 
 #close-menu-button:before {
-  position: absolute;
+ /* position: absolute;*/
   width: 2rem;
   height: 2rem;
   top: 0;
@@ -120,9 +125,9 @@ button {
 }
 
 #menu-modal {
-  display: none;
-  z-index: 3;
-  position: fixed;
+  /*display: none;*/
+  /*z-index: 3;*/
+  /*position: fixed;*/
   top: 0;
   left: 0;
   right: 0;
@@ -132,39 +137,48 @@ button {
 
 #menu
 {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  height: 100vh;
-  max-width: 400px;
+  grid-column:1;
+  display:grid;
+  grid-template-rows: repeat(10, 1fr);
+  /*position: fixed;*/
+  
+    max-width: 400px;
+    height: 100vh;
   padding: 2rem 1rem;
-  padding-bottom: 6rem;
-  background-color: #ffffff;
-  overflow-y: auto;
-  z-index: 4;
+  padding-bottom: 1rem;
+  background-color: #f5f5f5;
+  /*background-color: #ffffff;*/
+ /* overflow-y: auto;
+  z-index: 4;*/
+}
+
+
+.menu-title{
+  grid-row:1;
+  max-width: 350px;
 }
 
 #content {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
+  /*position: fixed;
+  display: flex;*/
+  /*z-index: 1;*/
+  width:inherit;
+  min-width: 400px;
 left: 0;
+padding: 1rem 1rem;
 padding-top: 4rem;
 }
 
 #user-email {
   display: block;
-  position: relative;
+  /*position: relative;*/
   padding-left: 2rem;
   font-weight: bold;
   color: #000000;
 }
 
 #user-email:before {
-  position: absolute;
+  /*position: absolute;*/
   left: 0;
   top: -3px;
   height: 1.5rem;
@@ -176,17 +190,19 @@ padding-top: 4rem;
 }
 
 #menu-lists {
-  position: relative;
+  /*position: relative;*/
   margin-top: 3rem;
   border-top: 1px solid #adadad;
   padding-top: 1rem;
+  max-width: 350px;
+  min-width: 300px;
 }
 
 #menu-lists .title {
-  position: absolute;
+  /*position: absolute;*/
   top: -0.9rem;
   padding-right: 1rem;
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
   font-weight: bold;
 }
 
@@ -197,10 +213,11 @@ padding-top: 4rem;
 
 #menu-lists ul a {
   display: block;
-  position: relative;
+  /*position: relative;*/
   padding: 0.5rem;
   padding-right: 2.5rem;
   color: #000000;
+  
 }
 
 #menu-lists ul a:hover {
@@ -208,28 +225,23 @@ padding-top: 4rem;
   color: #ffffff;
 }
 
-#menu-lists ul a .badge {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  bottom: 0;
-  height: 2rem;
+#menu-lists ul li a .badge {
+  /*position: absolute;*/
+  height: 1.5rem;
   width: 2rem;
   background-color: #ff7675;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-left: 15px;
 }
 
 #menu-new-list {
-  position: relative;
+  /*position: relative;*/
   padding-left: 2rem;
   font-weight: bold;
   color: #000000;
 }
 
 #menu-new-list:before {
-  position: absolute;
+  /*position: absolute;*/
   left: 0;
   top: 0;
   height: 1rem;
@@ -241,12 +253,13 @@ padding-top: 4rem;
 }
 
 #menu-bottom {
-  position: fixed;
+  /*position: fixed;*/
+  grid-row:10;
   max-width: 400px;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
 }
 
 #menu-bottom ul {
@@ -257,7 +270,7 @@ padding-top: 4rem;
 
 #menu-bottom ul a {
   display: block;
-  position: relative;
+ /* position: relative;*/
   padding: 0.5rem 1rem;
   padding-left: 2.5rem;
   color: #000000;
@@ -269,7 +282,7 @@ padding-top: 4rem;
 }
 
 #menu-settings:before {
-  position: absolute;
+  /*position: absolute;*/
   top: 11px;
   left: 1rem;
   width: 1rem;
@@ -281,7 +294,7 @@ padding-top: 4rem;
 }
 
 #menu-logout:before {
-  position: absolute;
+  /*position: absolute;*/
   top: 11px;
   left: 1rem;
   width: 1rem;
@@ -375,16 +388,15 @@ padding-top: 4rem;
 }
 
 #menu-task-edit {
-  display: none;
+  /*display: none;
   position: fixed;
-  z-index: 3;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 400px;
+  z-index: 3;*/
+  grid-column:3;
+  max-width: 400px;
   background-color: #f5f5f5;
   border-left: 1px solid #bdbdbd;
   padding: 1rem;
+  /*margin :0;*/
 }
 
 .block {
@@ -431,6 +443,7 @@ padding-top: 4rem;
 
 button.optional {
   background-color: #bdbdbd;
+  margin-left:10px;
 }
 
 .settings-form {
@@ -442,23 +455,24 @@ button.optional {
   margin-right: 10%;
   max-width: 600px;
 }
-
+/*
 #settings-title {
 display: none;
   }
-
+*/
 
 @media screen and (min-width: 1200px) {
   #navbar {
 display: none;
   }
   
-  #menu {
+  /*#menu {
   background-color: #f5f5f5;
-  overflow-y: auto;
-  z-index: unset;
-  display: block;
-  }
+  grid-column: 1;
+  /*overflow-y: auto;
+  z-index: unset;*/
+  /*display: block;
+  }*/
 
   #menu-bottom {
 background-color: #f5f5f5;
@@ -473,9 +487,12 @@ display: none;
   }
 
   #content {
-  z-index: auto;
-left: 400px;
-  padding: 2rem 1rem;
+  /*z-index: auto;*/
+  /*display: flex;*/
+  /*grid-column: 2 / 5;
+  width:inherit;*/
+  left: 400px;
+  padding: 1rem 1rem;
   }
 
   #settings-title {
@@ -486,5 +503,4 @@ display: block;
       max-width: 600px;
   }
 }
-
 

@@ -1,18 +1,19 @@
 import * as React from "react"
 import MenuBottom from "./MenuBottom"
+import MenuTitle from "./MenuTitle"
 import MenuLists from "./MenuLists"
-import { useAuth } from "../context/auth";
 import { useParams } from "react-router";
 
 function Menu(props){
-  const user=useAuth()
+  
+  const list = useParams()
+
   return (
     <div id="menu">
-        <button id="close-menu-button"></button>
-        <a href="/home" id="user-email">{user.authTokens.Email}</a>
-        <MenuLists/>
-        <MenuBottom/>
-        {console.log(useParams())}
+        <MenuTitle />
+        <MenuLists />
+        <MenuBottom />
+        {console.log(list)}
     </div>
   )
 }

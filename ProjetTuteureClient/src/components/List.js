@@ -16,7 +16,8 @@ function List(props){
       )
   }
   return ( 
-            <li><a href="/" title="" onClick={handleClick} >{props.informations.title} <div className="badge"></div></a></li>
+            //<li><a href="/" title="" onClick={handleClick} >{props.informations.title} <div className="badge"></div></a></li>
+            <li><a href="/" title="" onClick={handleClick} >rtfhdrtsfdgggggggggdrs<div className="badge">10</div></a></li>
     )
   }
 

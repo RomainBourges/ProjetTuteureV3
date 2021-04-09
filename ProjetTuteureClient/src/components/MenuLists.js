@@ -3,6 +3,8 @@ import { useAuth } from "../context/auth"
 import { useState } from 'react'
 import { useEffect } from 'react'
 import List from "./List"
+import { ReactComponent as PlusIcon } from '../assets/plus.svg'
+
 
 
 function MenuLists(props){
@@ -19,7 +21,7 @@ function MenuLists(props){
       method: 'POST',
       body: parameters
     }
-    const reponse = await fetch('http://localhost:80/ProjetTuteureServer/get_lists', options)
+    const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_lists', options)
     const data = await reponse.json()
 
     if(reponse.ok){
@@ -31,13 +33,24 @@ function MenuLists(props){
   });    
     
   return ( 
+    
     <nav id="menu-lists">
-      {console.log(user.authTokens.Email)}
+      {console.log(informations)}
         <span className="title">Mes listes</span>
         <ul>
-        {console.log(informations)}
+          <List />
+          <List />
+          <List />
+          <List />
+          <List />
+          <List />
+          <List />
+          <List />
+          <List />
+          <List />
+          <List />
         </ul>
-        <a href="/" id="menu-new-list" title="Nouvelle liste">Nouvelle liste</a>
+        <a href="/" id="menu-new-list" title="Nouvelle liste"><PlusIcon />Nouvelle liste</a>
     </nav>
     
     )

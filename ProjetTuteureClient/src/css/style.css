@@ -1,10 +1,15 @@
-* {
+/** {
     box-sizing: border-box;
-}
+}*/
 
 html,
 body {
     height: 100%;
+}
+
+.wrapper{
+    display : flex;
+    flex-direction: column;
 }
 
 #landing {
@@ -59,8 +64,8 @@ button {
 
 #navbar {
     display: block;
-    position: absolute;
-    z-index: 2;
+    /*position: absolute;*/
+    /*z-index: 2;*/
     top: 0;
     left: 0;
     right: 0;
@@ -79,7 +84,7 @@ button {
 
 #open-menu-button,
 #close-menu-button {
-    position: relative;
+    /*position: relative;*/
     height: 2rem;
     width: 2rem;
     padding: 0;
@@ -91,7 +96,7 @@ button {
 }
 
 #open-menu-button:before {
-    position: absolute;
+    /*position: absolute;*/
     width: 2rem;
     height: 2rem;
     top: 0;
@@ -108,7 +113,7 @@ button {
 }
 
 #close-menu-button:before {
-    position: absolute;
+    /*position: absolute;*/
     width: 2rem;
     height: 2rem;
     top: 0;
@@ -120,51 +125,51 @@ button {
 }
 
 #menu-modal {
-    display: none;
-    z-index: 3;
-    position: fixed;
+    /*display: none;
+    /*z-index: 3;*/
+    /*position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 0;*/
     background-color: rgba(0, 0, 0, 0.7);
 }
 
 #menu
 {
-    display: none;
+    /*display: none;
     position: fixed;
     top: 0;
     left: 0;
-    bottom: 0;
+    bottom: 0;*/
     height: 100vh;
     max-width: 400px;
     padding: 2rem 1rem;
     padding-bottom: 6rem;
     background-color: #ffffff;
-    overflow-y: auto;
-    z-index: 4;
+    /*overflow-y: auto;
+    z-index: 4;*/
 }
 
 #content {
-    position: absolute;
+    /*position: absolute;
     top: 0;
     right: 0;
-    z-index: 1;
-	left: 0;
+    /*z-index: 1;
+	left: 0;*/
 	padding-top: 4rem;
 }
 
 #user-email {
     display: block;
-    position: relative;
+    /*position: relative;*/
     padding-left: 2rem;
     font-weight: bold;
     color: #000000;
 }
 
 #user-email:before {
-    position: absolute;
+    /*position: absolute;*/
     left: 0;
     top: -3px;
     height: 1.5rem;
@@ -176,14 +181,14 @@ button {
 }
 
 #menu-lists {
-    position: relative;
+    /*position: relative;*/
     margin-top: 3rem;
     border-top: 1px solid #adadad;
     padding-top: 1rem;
 }
 
 #menu-lists .title {
-    position: absolute;
+    /*position: absolute;*/
     top: -0.9rem;
     padding-right: 1rem;
     background-color: #ffffff;
@@ -197,7 +202,7 @@ button {
 
 #menu-lists ul a {
     display: block;
-    position: relative;
+    /*position: relative;*/
     padding: 0.5rem;
     padding-right: 2.5rem;
     color: #000000;
@@ -209,7 +214,7 @@ button {
 }
 
 #menu-lists ul a .badge {
-    position: absolute;
+    /*position: absolute;*/
     top: 4px;
     right: 4px;
     bottom: 0;
@@ -222,14 +227,14 @@ button {
 }
 
 #menu-new-list {
-    position: relative;
+    /*position: relative;*/
     padding-left: 2rem;
     font-weight: bold;
     color: #000000;
 }
 
 #menu-new-list:before {
-    position: absolute;
+    /*position: absolute;*/
     left: 0;
     top: 0;
     height: 1rem;
@@ -241,7 +246,7 @@ button {
 }
 
 #menu-bottom {
-    position: fixed;
+    /*position: fixed;*/
     max-width: 400px;
     left: 0;
     right: 0;
@@ -257,7 +262,7 @@ button {
 
 #menu-bottom ul a {
     display: block;
-    position: relative;
+    /*position: relative;*/
     padding: 0.5rem 1rem;
     padding-left: 2.5rem;
     color: #000000;
@@ -269,7 +274,7 @@ button {
 }
 
 #menu-settings:before {
-    position: absolute;
+    /*position: absolute;*/
     top: 11px;
     left: 1rem;
     width: 1rem;
@@ -281,7 +286,7 @@ button {
 }
 
 #menu-logout:before {
-    position: absolute;
+    /*position: absolute;*/
     top: 11px;
     left: 1rem;
     width: 1rem;
@@ -375,9 +380,9 @@ button {
 }
 
 #menu-task-edit {
-    display: none;
+    /*display: none;*/
     position: fixed;
-    z-index: 3;
+    /*z-index: 3;*/
     top: 0;
     right: 0;
     bottom: 0;
@@ -444,19 +449,19 @@ button.optional {
 }
 
 #settings-title {
-	display: none;
+	/*display: none;*/
     }
 
-
+/*
 @media screen and (min-width: 1200px) {
-    #navbar {
+    /*#navbar {
 	display: none;
     }
     
     #menu {
     background-color: #f5f5f5;
-    overflow-y: auto;
-    z-index: unset;
+    /*overflow-y: auto;*/
+    /*z-index: unset;
     display: block;
     }
 
@@ -468,12 +473,12 @@ button.optional {
 	background-color: #f5f5f5;
     }
 
-    #close-menu-button {
+    /*#close-menu-button {
 	display: none;
     }
 
     #content {
-    z-index: auto;
+    /*z-index: auto;
 	left: 400px;
     padding: 2rem 1rem;
     }
@@ -485,6 +490,6 @@ button.optional {
     .settings-form {
         max-width: 600px;
     }
-}
+}*/
 
 
