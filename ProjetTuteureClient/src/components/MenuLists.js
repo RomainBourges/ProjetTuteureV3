@@ -14,28 +14,31 @@ function MenuLists(props){
   const [informations, setInformations] = useState("");
   const [error, setError] = useState("");
 
-  useEffect( async () => {
-    let parameters = new URLSearchParams()
+  useEffect( () => {
+    async function request(){
+      let parameters = new URLSearchParams()
 
-    const options = {
-      method: 'POST',
-      body: parameters
-    }
-    const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_lists', options)
-    const data = await reponse.json()
+      const options = {
+        method: 'POST',
+        body: parameters
+      }
+      const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_lists', options)
+      const data = await reponse.json()
 
-    if(reponse.ok){
-      setInformations(data.lists)
-       
-    }else{
-      setError(data.message)
+      if(reponse.ok){
+        setInformations(data.lists)
+        
+      }else{
+        setError(data.message)
+      }
     }
-  });    
+    request()
+  }, [])   
     
   return ( 
-    
-    <nav id="menu-lists">
+    <div id="menu-lists">
       {console.log(informations)}
+      {console.log(error)}
         <span className="title">Mes listes</span>
         <ul>
           <List />
@@ -51,7 +54,7 @@ function MenuLists(props){
           <List />
         </ul>
         <a href="/" id="menu-new-list" title="Nouvelle liste"><PlusIcon />Nouvelle liste</a>
-    </nav>
+    </div>
     
     )
   }

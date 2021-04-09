@@ -8,7 +8,7 @@ function MenuBottom(props){
 
   function logOut(){
     setAuthTokens("");
-    localStorage.clear();
+    //localStorage.clear();
   }
 
   return (
