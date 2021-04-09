@@ -1,0 +1,455 @@
+/*
+DROP TABLE Users;
+DROP TABLE List;
+DROP TABLE Task;
+DROP TABLE Step;
+*/
+
+/*Créer la base*/
+CREATE DATABASE toDoList;
+
+/*selectionner la bdd puis lancer le reste du script*/
+
+CREATE TABLE Users(
+IdUser INTEGER AUTO_INCREMENT PRIMARY KEY,
+Email VARCHAR(50) NOT NULL,
+Password VARCHAR(60) NOT NULL,
+CreationDate date DEFAULT sysdate() NOT NULL,
+ModifyDate DATE,
+DeleteDate DATE
+);
+
+CREATE TABLE List(
+IdList INTEGER AUTO_INCREMENT PRIMARY KEY,
+userId INTEGER NOT NULL,
+Title VARCHAR(30) NOT NULL,
+Description VARCHAR(300),
+CreationDate DATE DEFAULT Sysdate() NOT NULL,
+ModifyDate DATE,
+DeleteDate DATE
+);
+
+
+CREATE TABLE Task(
+IdTask INTEGER AUTO_INCREMENT PRIMARY KEY,
+ListId INTEGER NOT NULL,
+Title VARCHAR(30) NOT NULL,
+Description VARCHAR(300),
+CheckTask BOOLEAN DEFAULT 0 NOT NULL,
+Deadline DATE NOT NULL, 
+CreationDate DATE DEFAULT Sysdate() NOT NULL,
+ModifyDate DATE,
+DeleteDate DATE
+);
+
+
+CREATE TABLE Step(
+IdStep INTEGER AUTO_INCREMENT PRIMARY KEY,
+TaskId INTEGER NOT NULL,
+Title VARCHAR(30)NOT NULL,
+Description VARCHAR(300),
+checkStep BOOLEAN DEFAULT 0 NOT NULL,
+CreationDate DATE DEFAULT Sysdate() NOT NULL,
+ModifyDate DATE,
+DeleteDate DATE
+);
+
+ALTER TABLE Users ENGINE InnoDB;
+ALTER TABLE List ENGINE InnoDB;
+ALTER TABLE Task ENGINE InnoDB;
+ALTER TABLE Step ENGINE InnoDB;
+ALTER TABLE Users ADD CONSTRAINT UNIQUE_Email UNIQUE(Email);
+ALTER TABLE List ADD CONSTRAINT FK_Users_List FOREIGN KEY (userId) REFERENCES USERS(IdUser) ON DELETE CASCADE;
+ALTER TABLE Task ADD CONSTRAINT FK_Task_List FOREIGN KEY (ListId) REFERENCES LIST(IdList) ON DELETE CASCADE;
+ALTER TABLE Task ADD CONSTRAINT CK_Dealine CHECK (deadline>=CreationDate);
+ALTER TABLE Step ADD CONSTRAINT FK_Step_Task FOREIGN KEY (TaskId) REFERENCES Task(IdTask) ON DELETE CASCADE;
+
+
+DELIMITER |
+
+/*Insert*/
+CREATE or replace PROCEDURE InsertUser(PEmail Varchar(50), PPassword Varchar(60)) 
+BEGIN 
+Insert Into Users(Email, Password) Values (PEmail, PPassword); 
+END |
+
+CREATE or replace PROCEDURE InsertList(PUserId INTEGER, PTitle Varchar(30), PDescription Varchar(300)) 
+BEGIN 
+Insert Into List(userId, Title, Description) Values (PuserId, PTitle, PDescription); 
+END |
+
+CREATE or replace PROCEDURE InsertTask(PListId INTEGER, PTitle Varchar(30), PDescription Varchar(300), PDeadline date) 
+BEGIN 
+Insert Into Task(ListId, Title, Description, Deadline) Values (PListId, PTitle, PDescription, PDeadline); 
+END |
+
+CREATE or replace PROCEDURE InsertStep(PTaskId INTEGER, PTitle Varchar(30), PDescription Varchar(300)) 
+BEGIN 
+Insert Into Step(TaskId, Title, Description) Values (PTaskId, PTitle, PDescription); 
+END |
+
+
+/*setters*/
+
+CREATE or replace PROCEDURE SetEmail(PEmailOld varchar(50), PEmailNew varchar(50))
+BEGIN
+	update Users set Email = PEmailNew where email=PEmailOld;
+END |
+
+CREATE or replace PROCEDURE SetPassword(PIdUser varchar(50), PPwdNew varchar(60))
+BEGIN
+	update Users set Password = PPwdNew where IdUser=PIdUser;
+	update Users set ModifyDate = sysdate();
+END |
+
+CREATE or replace PROCEDURE setList(PIdList INTEGER, PTitleNew Varchar(30), PDescription Varchar(300))
+BEGIN
+	IF LENGTH(PTitleNew)>0 THEN
+	update List set Title = PTitleNew where idList = PIdList;
+	update List set ModifyDate = sysdate();
+	END IF;
+	IF LENGTH(PDescription)>0 THEN
+	update List set Description = PDescription where idList = PIdList;
+	update List set ModifyDate = sysdate();
+	END IF;	
+END |
+
+CREATE or replace PROCEDURE SetCheckTask(PIdTask INTEGER, PValue Integer) 
+BEGIN 
+	update Task set CheckTask=PValue where IdTask=PIdTask;
+	IF (PVALUE=1) THEN
+	update Task set ModifyDate=sysdate() Where IdTask=PIdTask;
+	ELSE
+		update Task set ModifyDate=NULL Where IdTask=PIdTask;
+	END IF;
+END |
+
+CREATE or replace PROCEDURE setTask(PIdTask INTEGER, PTitleNew Varchar(30), PDescription Varchar(300), PDeadline DATE)
+BEGIN
+	IF LENGTH(PTitleNew)>0 THEN
+		update Task set Title = PTitleNew where IdTask = PIdTask;
+		update Task set ModifyDate = sysdate();
+	END IF;
+	IF LENGTH(PDescription)>0 THEN
+		update Task set Description = PDescription where  IdTask = PIdTask;
+		update Task set ModifyDate = sysdate();
+	END IF;
+    IF LENGTH(CONVERT(PDeadline, VARCHAR(10)))>0 THEN
+		update Task set Deadline = PDeadline where  IdTask = PIdTask;
+		update Task set ModifyDate = sysdate();
+	END IF;
+END |
+
+CREATE or replace PROCEDURE setDeadlineTask(PIdTask INTEGER, PNewDate Date)
+BEGIN
+	update Task set Deadline = PNewDate where  IdTask = PIdTask;
+END |
+
+CREATE or replace PROCEDURE SetCheckStep(PIdStep INTEGER, PValue Integer) 
+BEGIN 
+	update Step set CheckStep=PValue where IdStep=PIdStep;
+	IF(PValue=1)THEN
+	update Step set ModifyDate=sysdate() Where IdStep=PIdStep;
+	ELSE
+	update Step set ModifyDate=NULL Where IdStep=PIdStep;
+	END IF;
+END |
+
+CREATE or replace PROCEDURE setStep(PIdStep INTEGER, PTitleNew Varchar(30), PDescription Varchar(300))
+BEGIN
+	IF LENGTH(PTitleNew)>0 THEN
+		update Step set Title = PTitleNew where IdStep = PIdStep;
+		update List set ModifyDate = sysdate();
+	END IF;
+	IF LENGTH(PDescription)>0 THEN
+		update Step set Description = PDescription where  IdStep = PIdStep;
+		update List set ModifyDate = sysdate();
+	END IF;
+	
+END |
+
+/*getters*/
+
+
+CREATE or replace FUNCTION getNbOfTask(PListId Integer) RETURNS INTEGER 
+BEGIN DECLARE V_Nb Integer; 
+	Select Count(idTask) INTO V_Nb 
+	from Task  
+	where ListId=PListId;
+RETURN V_Nb; 
+END |
+
+CREATE or replace FUNCTION getNbOfStep(PTaskId integer) RETURNS INTEGER 
+BEGIN DECLARE V_Nb Integer; 
+	Select Count(idStep) INTO V_Nb 
+	from Step  
+	where TaskId=PTaskId;
+RETURN V_Nb;
+END |
+
+CREATE or replace FUNCTION getNbOfStepValid(PTaskId integer) RETURNS INTEGER 
+BEGIN DECLARE V_Nb Integer; 
+	Select Count(idStep) INTO V_Nb 
+	from Step  
+	where TaskId=PTaskId
+	and checkStep = 1;
+RETURN V_Nb;
+END |
+
+CREATE or replace FUNCTION getDateOfList(PIdList VARCHAR(30)) RETURNS DATE 
+BEGIN DECLARE V_Date DATE; 
+	Select CreationDate INTO V_Date 
+	from List
+	where idList=PIdList;
+RETURN V_Date; 
+END |
+
+CREATE or replace FUNCTION getPassword(PEmail VARCHAR(50)) RETURNS VARCHAR(60) 
+BEGIN DECLARE V_Pwd VARCHAR(60); 
+	Select Password INTO V_Pwd from Users where email=PEmail;
+RETURN V_Pwd; 
+END |
+
+
+/*DELETE*/
+
+CREATE or replace PROCEDURE deleteStep(PIdStep INTEGER)
+BEGIN
+	Delete From Step where IdStep=PIdStep;
+END |
+
+CREATE or replace PROCEDURE deleteTask(PIdTask INTEGER)
+BEGIN
+	Delete From Task where IdTask=PIdTask;
+END |
+
+CREATE or replace PROCEDURE deleteList(PIdList INTEGER)
+BEGIN
+	Delete From List where IdList=PIdList;
+END |
+
+
+CREATE or replace PROCEDURE deleteUser(PIdUser INTEGER)
+BEGIN
+	Delete From Users where IdUser=PIdUser;
+END |
+
+
+/*LIST_DATA*/
+CREATE or replace FUNCTION getUserLists(PuserId INTEGER) RETURNS VARCHAR(4000)
+BEGIN
+    DECLARE finished INTEGER DEFAULT 0;
+	DECLARE V_Liste VARCHAR(4000);
+    DECLARE V_Infos VARCHAR(300) DEFAULT '';
+	
+    DECLARE C_Liste 
+		CURSOR FOR 
+			Select CONCAT_WS('¤', IdList, Title, Description, CONVERT(CreationDate,VARCHAR(10)))
+			from List 
+			where userId = PuserId 
+			order by CreationDate DESC; 
+			
+    DECLARE CONTINUE HANDLER
+    FOR NOT FOUND SET finished = 1;
+    OPEN C_Liste;
+        getList:LOOP
+            FETCH C_Liste INTO V_Infos;
+            IF finished = 1 THEN 
+                LEAVE getList;
+            END IF;
+            SET V_Liste = CONCAT_WS('£',V_Liste, V_Infos);
+		END LOOP getList;
+    CLOSE C_Liste;
+	
+RETURN V_Liste; 
+END |
+
+CREATE or replace FUNCTION getListTasks(PListId INTEGER) RETURNS VARCHAR(4000)
+BEGIN
+    DECLARE finished INTEGER DEFAULT 0;
+	DECLARE V_Liste VARCHAR(4000);
+    DECLARE V_Infos VARCHAR(300) DEFAULT '';
+	
+    DECLARE C_Liste 
+		CURSOR FOR 
+			Select CONCAT_WS('¤', IdTask, ListId, Title, Description, CONVERT(CheckTask, CHAR(1)), CONVERT(Deadline,VARCHAR(10)), CONVERT(CreationDate,VARCHAR(10)), CONVERT(ModifyDate,VARCHAR(10))) 
+			from Task 
+			where listId = PListId 
+			order by Deadline DESC; 
+			
+    DECLARE CONTINUE HANDLER
+    FOR NOT FOUND SET finished = 1;
+    OPEN C_Liste;
+        getList:LOOP
+            FETCH C_Liste INTO V_Infos;
+            IF finished = 1 THEN 
+                LEAVE getList;
+            END IF;
+            SET V_Liste = CONCAT_WS('£',V_Liste, V_Infos);
+		END LOOP getList;
+    CLOSE C_Liste;
+	
+RETURN V_Liste; 
+END |
+
+CREATE or replace FUNCTION getTaskSteps(PTaskId INTEGER) RETURNS VARCHAR(4000)
+BEGIN
+    DECLARE finished INTEGER DEFAULT 0;
+	DECLARE V_Liste VARCHAR(4000);
+    DECLARE V_Infos VARCHAR(300) DEFAULT '';
+	
+    DECLARE C_Liste 
+		CURSOR FOR 
+			Select CONCAT_WS('¤', IdStep, TaskId, Title, Description, CONVERT(CheckStep, CHAR(1)))
+			from Step 
+			where TaskId = PTaskId 
+			order by CreationDate ASC; 
+			
+    DECLARE CONTINUE HANDLER
+    FOR NOT FOUND SET finished = 1;
+    OPEN C_Liste;
+        getList:LOOP
+            FETCH C_Liste INTO V_Infos;
+            IF finished = 1 THEN 
+                LEAVE getList;
+            END IF;
+            SET V_Liste = CONCAT_WS('£',V_Liste, V_Infos);
+		END LOOP getList;
+    CLOSE C_Liste;
+	
+RETURN V_Liste; 
+END |
+
+
+/*TRIGGER*/
+DROP TRIGGER IF EXISTS BiVerifyTitleList |
+DROP TRIGGER IF EXISTS BuVerifyTitleList |
+
+DROP TRIGGER IF EXISTS BiVerifyTitleTask |
+DROP TRIGGER IF EXISTS BuVerifyTitleTask |
+
+DROP TRIGGER IF EXISTS BiVerifyTitleStep |
+DROP TRIGGER IF EXISTS BuVerifyTitleStep |
+
+DROP TRIGGER IF EXISTS BiVerifyUniqueEmail |
+DROP TRIGGER IF EXISTS BuVerifyUniqueEmail |
+
+DROP TRIGGER IF EXISTS BiVerifyDeadlineTask |
+DROP TRIGGER IF EXISTS BuVerifyDeadlineTask |
+
+DROP TRIGGER IF EXISTS BiVerifyNotNullEmailPassword |
+DROP TRIGGER IF EXISTS BuVerifyNotNullEmailPassword |
+
+CREATE TRIGGER BiVerifyTitleList 
+BEFORE INSERT ON list 
+FOR EACH ROW 
+BEGIN 
+IF LENGTH(NEW.Title)=0 THEN 
+signal sqlstate '20001' SET MESSAGE_TEXT = 'Le titre de la liste ne peut pas etre nul';
+END IF; 
+END |
+
+CREATE TRIGGER BuVerifyTitleList 
+BEFORE UPDATE ON list 
+FOR EACH ROW 
+BEGIN 
+IF LENGTH(NEW.Title)=0 THEN 
+signal sqlstate '20001' SET MESSAGE_TEXT = 'Le titre de la liste ne peut pas etre nul';
+END IF; 
+END |
+
+CREATE TRIGGER BiVerifyTitleTask
+BEFORE INSERT ON task 
+FOR EACH ROW 
+BEGIN 
+IF LENGTH(NEW.Title)=0 THEN 
+signal sqlstate '20001' SET MESSAGE_TEXT = 'Le titre de la tache ne peut pas etre nul';
+END IF; 
+END |
+
+CREATE TRIGGER BuVerifyTitleTask
+BEFORE UPDATE ON task 
+FOR EACH ROW 
+BEGIN 
+IF LENGTH(NEW.Title)=0 THEN 
+signal sqlstate '20001' SET MESSAGE_TEXT = 'Le titre de la tache ne peut pas etre nul';
+END IF; 
+END |
+
+CREATE TRIGGER BiVerifyTitleStep
+BEFORE INSERT ON step 
+FOR EACH ROW 
+BEGIN 
+IF LENGTH(NEW.Title)=0 THEN 
+signal sqlstate '20001' SET MESSAGE_TEXT = 'Le titre de l''etape ne peut pas etre nul';
+END IF; 
+END |
+
+CREATE TRIGGER BuVerifyTitleStep
+BEFORE UPDATE ON step 
+FOR EACH ROW 
+BEGIN 
+IF LENGTH(NEW.Title)=0 THEN 
+signal sqlstate '20001' SET MESSAGE_TEXT = 'Le titre de l''etape ne peut pas etre nul';
+END IF; 
+END |
+
+CREATE TRIGGER BiVerifyUniqueEmail
+BEFORE INSERT ON users 
+FOR EACH ROW 
+BEGIN 
+DECLARE V_email VARCHAR(30);
+SELECT Email INTO V_email FROM users WHERE Email=new.Email;
+IF LENGTH(V_email)>0 THEN 
+signal sqlstate '20002' SET MESSAGE_TEXT = 'Cet email existe deja';
+END IF; 
+END |
+
+CREATE TRIGGER BuVerifyUniqueEmail
+BEFORE UPDATE ON users 
+FOR EACH ROW 
+BEGIN 
+DECLARE V_email VARCHAR(30);
+SELECT Email INTO V_email FROM users WHERE Email=new.Email;
+IF LENGTH(V_email)>0 THEN 
+signal sqlstate '20002' SET MESSAGE_TEXT = 'Cet email existe deja';
+END IF; 
+END |
+
+CREATE TRIGGER BiVerifyDeadlineTask
+BEFORE INSERT ON Task 
+FOR EACH ROW 
+BEGIN 
+IF New.Deadline<sysdate() THEN 
+signal sqlstate '20002' SET MESSAGE_TEXT = 'la tache ne peut etre terminee avant sa date de creation'; 
+END IF; 
+END |
+
+CREATE TRIGGER BuVerifyDeadlineTask
+BEFORE UPDATE ON Task 
+FOR EACH ROW 
+BEGIN 
+IF New.Deadline<sysdate() THEN 
+signal sqlstate '20002' SET MESSAGE_TEXT = 'la tache ne peut etre terminee avant sa date de creation'; 
+END IF; 
+END |
+
+CREATE TRIGGER BiVerifyNotNullEmailPassword
+BEFORE INSERT ON users 
+FOR EACH ROW 
+BEGIN 
+IF LENGTH(New.email)=0 or LENGTH(New.Password)=0 THEN 
+signal sqlstate '20002' SET MESSAGE_TEXT = 'L''email ou le passord ne peut etre nul';
+END IF; 
+END |
+
+CREATE TRIGGER BuVerifyNotNullEmailPassword
+BEFORE UPDATE ON users 
+FOR EACH ROW 
+BEGIN 
+IF LENGTH(New.email)=0 or LENGTH(New.Password)=0 THEN 
+signal sqlstate '20002' SET MESSAGE_TEXT = 'L''email ou le passord ne peut etre nul';
+END IF; 
+END |
+
+DELIMITER ;
