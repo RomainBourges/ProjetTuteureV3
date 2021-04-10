@@ -1,6 +1,7 @@
 <?php
 
 header("Content-Type: application/json; charset=UTF-8");
+http_response_code(400);
 if(!isset($_POST["IdTask"])){
     echo json_encode(["message" => "tache introuvable"]);
     exit;
@@ -29,6 +30,6 @@ if($verify_request <= 0){
     echo json_encode(["message" => "erreur lors de l'ajout de l'etape' dans la base de donnees"]);
     exit;
 }
-
+http_response_code(200);
 echo json_encode(["message" => "L'etape a bien ete ajoutee"]);
 exit;

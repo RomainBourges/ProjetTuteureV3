@@ -1,6 +1,7 @@
 <?php
 
 header("Content-Type: application/json; charset=UTF-8");
+http_response_code(400);
 if(!isset($_GET["email"]) || !isset($_GET["password"]) || !isset($_GET["password_conf"])){
     echo json_encode([
         "message" => "veuillez remplir tous les champs",
@@ -27,7 +28,7 @@ try{
     ]);
     exit;
 }
-
+http_response_code(200);
 echo json_encode([
     "message" => "Votre compte a bien été cree et un email de confirmation vous a ete envoye",
 ]);

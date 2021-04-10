@@ -1,6 +1,7 @@
 <?php
 
 header("Content-Type: application/json; charset=UTF-8");
+http_response_code(400);
 if(!isset($_POST["IdUser"])){
     echo json_encode([
         "message" => "Utilisateur introuvable",
@@ -22,5 +23,6 @@ if($verify_request <= 0){
     exit;
 }
 
+http_response_code(200);
 echo json_encode(["message" => "L'utilisateur a bien ete supprime"]);
 exit;
