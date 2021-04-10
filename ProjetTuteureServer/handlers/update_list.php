@@ -1,6 +1,7 @@
 <?php
 
 header("Content-Type: application/json; charset=UTF-8");
+http_response_code(400);
 if(!isset($_POST["IdList"])){
     echo json_encode(["message" => "Liste introuvable"]);
     exit;
@@ -22,5 +23,6 @@ try{
     exit;
 }
 
+http_response_code(200);
 echo json_encode(["message" => "La liste a bien ete modifiee"]);
 exit;

@@ -1,6 +1,7 @@
 <?php
 
 header("Content-Type: application/json; charset=UTF-8");
+http_response_code(400);
 if(!isset($_POST["IdList"])){
     echo json_encode(["message" => "Liste introuvable"]);
     exit;
@@ -31,6 +32,6 @@ if($verify_request <= 0){
     echo json_encode(["message" => "erreur lors de l'ajout de la tache dans la base de donnees"]);
     exit;
 }
-
+http_response_code(200);
 echo json_encode(["message" => "La tache a bien ete ajoutee"]);
 exit;

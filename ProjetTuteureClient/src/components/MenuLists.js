@@ -10,32 +10,9 @@ import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 function MenuLists(props){
   //const existingTokens = JSON.parse(localStorage.getItem("tokens"))
   const user=useAuth()
-  const [first, setFirst] = useState(true);
   const [listInfos, setInformations] = useState("");
   const [error, setError] = useState("");
 
-  /*if(first){
-    request()
-      setFirst(false)
-  }
-  async function request(){
-    let parameters = new URLSearchParams()
-    parameters.append("IdUser",user.authTokens.IdUser);
-
-    const options = {
-      method: 'POST',
-      body: parameters
-    }
-    const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_lists', options)
-    const data = await reponse.json()
-    {console.log("data : ", data)}
-    if(reponse.status === 200){
-      setInformations(data.lists)
-
-    }else{
-      setError(data.message)
-    }
-  }*/
   useEffect( () => {
     async function request(){
       let parameters = new URLSearchParams()
@@ -47,7 +24,7 @@ function MenuLists(props){
       }
       const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_lists', options)
       const data = await reponse.json()
-      //{console.log("data : ", data)}
+      
       if(reponse.status === 200){
         setInformations(data.lists)
         

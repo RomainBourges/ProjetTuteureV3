@@ -25,7 +25,9 @@ for($i = 0; $i < sizeof($task); $i++){
         "Description" => $task[$i][3],
         "CheckTask" => $task[$i][4],
         "DeadLine" => $task[$i][5],
-        "CreatedDate" => $task[$i][6]
+        "CreatedDate" => $task[$i][6],
+        "FinishedSteps" => $task[$i][7],
+        "TotalSteps" => $task[$i][8]
     ];
 }
 http_response_code(200);

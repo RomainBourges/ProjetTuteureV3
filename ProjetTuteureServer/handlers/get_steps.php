@@ -1,6 +1,7 @@
 <?php
 
 header("Content-Type: application/json; charset=UTF-8");
+http_response_code(400);
 if(!isset($_POST["IdTask"])){
     echo json_encode(["message" => "tache inconnue"]);
     exit;
@@ -28,6 +29,7 @@ for($i = 0; $i < sizeof($step); $i++){
     ];
 }
 
+http_response_code(200);
 echo json_encode([
     "steps" => $step,
     "message" => "",
