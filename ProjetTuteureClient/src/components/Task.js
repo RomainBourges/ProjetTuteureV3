@@ -1,25 +1,31 @@
 import { ReactComponent as DeleteIcon } from '../assets/delete.svg'
 
 function Task(props){
+    const classChecked = "circle "
+    const classBarred = "name"
+
+    if(props.tasksInfos.CheckTask === "1"){
+        classChecked = "circle checked"
+        classBarred = "name done"
+    }
+
     return (
-        <li>
-            <div className="task">
-                <div className="icon">
-                    <div className="circle checked"></div>
-                </div>
-                <div className="name done">
-                    nom
-                </div>
-                <ul>
-                    <li className="number">2 sur 3</li>
-                    <li className="deadline">Échéance: demain</li>
-                    <li className="note">Note</li>
-                </ul>
-                <a href="/" title="Supprimer la tâche">
-                    <DeleteIcon />
-                </a>
+        <div className="task">
+            <div className="icon">
+                <div className={classChecked}></div>
             </div>
-        </li>
+            <div className={classBarred}>
+                {props.tasksInfos.Title}
+            </div>
+            <ul>
+                <li className="number">a faire</li>
+                <li className="deadline">Échéance: {props.tasksInfos.DeadLine}</li>
+                <li className="note">{props.tasksInfos.Description}</li>
+            </ul>
+            <a href="/" title="Supprimer la tâche">
+                <DeleteIcon />
+            </a>
+        </div>
     )
 }
 

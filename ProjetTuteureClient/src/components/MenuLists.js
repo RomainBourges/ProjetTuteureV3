@@ -10,10 +10,32 @@ import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 function MenuLists(props){
   //const existingTokens = JSON.parse(localStorage.getItem("tokens"))
   const user=useAuth()
-  
-  const [informations, setInformations] = useState("");
+  const [first, setFirst] = useState(true);
+  const [listInfos, setInformations] = useState("");
   const [error, setError] = useState("");
 
+  /*if(first){
+    request()
+      setFirst(false)
+  }
+  async function request(){
+    let parameters = new URLSearchParams()
+    parameters.append("IdUser",user.authTokens.IdUser);
+
+    const options = {
+      method: 'POST',
+      body: parameters
+    }
+    const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_lists', options)
+    const data = await reponse.json()
+    {console.log("data : ", data)}
+    if(reponse.status === 200){
+      setInformations(data.lists)
+
+    }else{
+      setError(data.message)
+    }
+  }*/
   useEffect( () => {
     async function request(){
       let parameters = new URLSearchParams()
@@ -23,9 +45,9 @@ function MenuLists(props){
         method: 'POST',
         body: parameters
       }
-      const reponse = await fetch('http://localhost:80/ProjetTuteureServer/get_lists', options)
+      const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_lists', options)
       const data = await reponse.json()
-
+      //{console.log("data : ", data)}
       if(reponse.status === 200){
         setInformations(data.lists)
         
@@ -34,7 +56,7 @@ function MenuLists(props){
       }
     }
     request()
-  }, [informations])   
+  }, [])
 
   function json2array(json){
     var result = [];
@@ -50,8 +72,8 @@ function MenuLists(props){
         <span className="title">Mes listes</span>
         <ul>
           {
-            json2array(informations).map(information => 
-              <List informations={information}/>
+            json2array(listInfos).map((listInfo, index) => 
+              <li key={index}><List listInfos={listInfo}/></li>
           )
           }
 
