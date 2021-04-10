@@ -8,7 +8,6 @@ function Home(props){
     <div className="wrapper">
       <Menu />
       <TasksList />
-      <EditMenu />
     </div> 
     
   )

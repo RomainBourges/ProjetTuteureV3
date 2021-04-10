@@ -23,7 +23,9 @@ for($i = 0; $i < sizeof($list); $i++){
         "IdList" => $list[$i][0],
         "Title" => $list[$i][1],
         "Description" => $list[$i][2],
-        "CreatedDate" => $list[$i][3]
+        "CreatedDate" => $list[$i][3],
+        "FinishedTasks" => $list[$i][4],
+        "TotalTasks" => $list[$i][5]
     ];
 }
 

@@ -6,7 +6,7 @@ function List(props){
   const [selected, setSelected] = useState(false);
 
   return ( 
-            <a href={`/home/${props.listInfos.IdList}`} title="" >{props.listInfos.Title}<div className="badge">10</div></a>
+            <a href={`/home/${props.listInfos.IdList}`} title="" >{props.listInfos.Title}<div className="badge">{props.listInfos.FinishedTasks}/{props.listInfos.TotalTasks}</div></a>
     )
   }
 

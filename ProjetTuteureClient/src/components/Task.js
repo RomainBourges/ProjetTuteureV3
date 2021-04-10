@@ -10,7 +10,7 @@ function Task(props){
     }
 
     return (
-        <div className="task">
+        <div className="task" onClick={props.onClick}>
             <div className="icon">
                 <div className={classChecked}></div>
             </div>
@@ -18,7 +18,7 @@ function Task(props){
                 {props.tasksInfos.Title}
             </div>
             <ul>
-                <li className="number">a faire</li>
+                <li className="number">{props.tasksInfos.FinishedSteps} sur {props.tasksInfos.TotalSteps}</li>
                 <li className="deadline">Échéance: {props.tasksInfos.DeadLine}</li>
                 <li className="note">{props.tasksInfos.Description}</li>
             </ul>
