@@ -5,19 +5,8 @@ import { Redirect } from "react-router-dom"
 function List(props){
   const [selected, setSelected] = useState(false);
 
-  function handleClick(e)  {
-      e.preventDefault()
-    setSelected(true)
-  }
-    
-  if(selected){
-    return (
-        <Redirect to={`/home/${props.informations.idList}`}/>
-      )
-  }
   return ( 
-            //<li><a href="/" title="" onClick={handleClick} >{props.informations.title} <div className="badge"></div></a></li>
-            <li><a href="/" title="" onClick={handleClick} >{props.informations.Title}<div className="badge">10</div></a></li>
+            <li><a href={`/home/${props.informations.IdList}`} title="" >{props.informations.Title}<div className="badge">10</div></a></li>
     )
   }
 

@@ -30,5 +30,5 @@ for($i = 0; $i < sizeof($list); $i++){
 http_response_code(200);
 echo json_encode([
     "lists" => $list,
-    "message" => "",
+    "message" => "ok",
 ]);
