@@ -34,7 +34,7 @@ function MenuLists(props){
       }
     }
     request()
-  }, [])   
+  }, [informations])   
 
   function json2array(json){
     var result = [];
@@ -47,9 +47,6 @@ function MenuLists(props){
     
   return ( 
     <div id="menu-lists">
-      {console.log('informations',json2array(informations))}
-      {console.log('error',error)}
-      {console.log('user',user)}
         <span className="title">Mes listes</span>
         <ul>
           {
