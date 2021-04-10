@@ -2,3 +2,6 @@ ProjetTuteureClient/node_modules/
 Old/
 wamplangues/
 wampthemes/
+ProjetTuteureServer/config.php
+ProjetTuteureServer/.htaccess
+ProjetTuteureClient/src/components/Login.js

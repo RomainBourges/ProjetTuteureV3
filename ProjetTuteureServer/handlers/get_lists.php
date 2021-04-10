@@ -2,13 +2,13 @@
 
 header("Content-Type: application/json; charset=UTF-8");
 http_response_code(400);
-if(!isset($_GET["IdUser"])){
+if(!isset($_POST["IdUser"])){
     echo json_encode(["message" => "utilisateur inconnu"]);
     exit;
 }
 
 $request = $db->prepare("SELECT getUserLists(?)");
-$request->execute([$_GET["IdUser"]]);
+$request->execute([$_POST["IdUser"]]);
 $lists = $request->fetch();
 
 if(!$lists[0]){

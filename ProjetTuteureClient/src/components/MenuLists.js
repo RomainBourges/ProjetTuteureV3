@@ -23,7 +23,7 @@ function MenuLists(props){
         method: 'POST',
         body: parameters
       }
-      const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_lists', options)
+      const reponse = await fetch('http://localhost:80/ProjetTuteureServer/get_lists', options)
       const data = await reponse.json()
 
       if(reponse.status === 200){
