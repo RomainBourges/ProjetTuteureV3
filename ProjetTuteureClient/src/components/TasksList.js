@@ -6,14 +6,14 @@ import { json2array } from "../utils";
 
 function TasksList (props){
 const idList = useParams().list
-const [tasksInfos, setInformations] = useState("");
+const [tasksInfos, setTasksInfos] = useState("");
 const [error, setError] = useState("");
 
 useEffect( () => {
 async function request(){
   console.log("coucou 1:")
     let parameters = new URLSearchParams()
-    parameters.append("IdList",idList);
+    parameters.append("IdList",idList)
     console.log("coucou 2:")
 
     const options = {
@@ -24,8 +24,9 @@ async function request(){
     const reponse = await fetch('http://localhost:80/ProjetTuteureServer/get_tasks', options)
     console.log("coucou 4:")
     const data = await reponse.json()
+    console.log("data", data)
     if(reponse.status === 200){
-      setInformations(data.tasks)
+      setTasksInfos(data.tasks)
 
     }else{
       setError(data.message)
@@ -38,11 +39,11 @@ async function request(){
         <div id="content">
             <h1>nom</h1>
             <ul id="tasks-list">
-            {console.log("informations : ", tasksInfos)}
+            {console.log("tasksInfos : ", tasksInfos)}
             {console.log("erreur : ", error)}
-            {
-            json2array(tasksInfos).map(taskInfo => 
-                <li><Task tasksInfos={taskInfo}/></li>
+            {console.log("tasksInfos.IdTask : ", tasksInfos.IdTask)}
+            {json2array(tasksInfos).map(taskInfo => 
+                <li key={taskInfo.IdTask}><Task tasksInfos={taskInfo}/></li>,
             )
             }
             <li>

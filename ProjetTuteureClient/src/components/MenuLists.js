@@ -4,14 +4,14 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import List from "./List"
 import { ReactComponent as PlusIcon } from '../assets/plus.svg'
-import { json2array } from "../utils"
 
 
 
 function MenuLists(props){
+  //const existingTokens = JSON.parse(localStorage.getItem("tokens"))
   const user=useAuth()
-
-  const [listInfos, setInformations] = useState("");
+  
+  const [informations, setInformations] = useState("");
   const [error, setError] = useState("");
 
   useEffect( () => {
@@ -28,28 +28,37 @@ function MenuLists(props){
 
       if(reponse.status === 200){
         setInformations(data.lists)
-
+        
       }else{
         setError(data.message)
       }
     }
     request()
-  }, [listInfos])
+  }, [informations])   
 
+  function json2array(json){
+    var result = [];
+    var keys = Object.keys(json);
+    keys.forEach(function(key){
+        result.push(json[key]);
+    });
+    return result;
+}
+    
   return ( 
     <div id="menu-lists">
         <span className="title">Mes listes</span>
         <ul>
           {
-            json2array(listInfos).map(listInfo => 
-              <List listInfos={listInfo}/>
+            json2array(informations).map(information => 
+              <List informations={information}/>
           )
           }
 
         </ul>
         <a href="/" id="menu-new-list" title="Nouvelle liste"><PlusIcon />Nouvelle liste</a>
     </div>
-
+    
     )
   }
 
