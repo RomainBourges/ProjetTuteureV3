@@ -256,7 +256,20 @@ BEGIN
 	
     DECLARE C_Liste 
 		CURSOR FOR 
-			Select CONCAT_WS('¤', IdList, Title, Description, CONVERT(CreationDate,VARCHAR(10)))
+			Select CONCAT_WS('¤'
+                             , IdList
+                             , Title
+                             , Description
+                             , CONVERT(CreationDate,VARCHAR(10))
+                             , CONVERT(
+                                 	(Select count(t.idTask) From Task t Where t.ListId=List.IdList and t.CheckTask=1)
+                                 	, VARCHAR(3)
+                             		  )
+                             , CONVERT(
+                                 (Select count(t.idTask) From Task t Where t.ListId=List.IdList)
+                                    , VARCHAR(3)
+                             		  )
+                            )
 			from List 
 			where userId = PuserId 
 			order by CreationDate DESC; 
@@ -284,9 +297,25 @@ BEGIN
 	
     DECLARE C_Liste 
 		CURSOR FOR 
-			Select CONCAT_WS('¤', IdTask, ListId, Title, Description, CONVERT(CheckTask, CHAR(1)), CONVERT(Deadline,VARCHAR(10)), CONVERT(CreationDate,VARCHAR(10))) 
-			from Task 
-			where listId = PListId 
+			Select CONCAT_WS('¤'
+                             , IdTask
+                             , ListId
+                             , Title
+                             , Description
+                             , CONVERT(CheckTask, CHAR(1))
+                             , CONVERT(Deadline,VARCHAR(10))
+                             , CONVERT(CreationDate,VARCHAR(10))
+                             , CONVERT(
+                                 	(Select count(s.idstep) From Step s Where s.TaskId=Task.IdTask and s.CheckStep=1)
+                                 	, VARCHAR(3)
+                             		  )
+                             , CONVERT(
+                                 (Select count(s.idstep) From Step s Where s.TaskId=Task.IdTask)
+                                    , VARCHAR(3)
+                             		  )
+                            )
+			from Task
+            WHERE listId = PListId 
 			order by Deadline DESC; 
 			
     DECLARE CONTINUE HANDLER
@@ -300,9 +329,9 @@ BEGIN
             SET V_Liste = CONCAT_WS('£',V_Liste, V_Infos);
 		END LOOP getList;
     CLOSE C_Liste;
-	
 RETURN V_Liste; 
 END |
+
 
 CREATE or replace FUNCTION getTaskSteps(PTaskId INTEGER) RETURNS VARCHAR(4000)
 BEGIN
