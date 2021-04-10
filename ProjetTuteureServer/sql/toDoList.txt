@@ -111,6 +111,10 @@ BEGIN
 	IF LENGTH(PDescription)>0 THEN
 	update List set Description = PDescription where idList = PIdList;
 	update List set ModifyDate = sysdate();
+	END IF;
+	IF LENGTH(PDescription)=0 THEN
+	update List set Description = 'Aucune description' where idList = PIdList;
+	update List set ModifyDate = sysdate();
 	END IF;	
 END |
 
@@ -138,6 +142,10 @@ BEGIN
 		update Task set Deadline = PDeadline where  IdTask = PIdTask;
 		update Task set ModifyDate = sysdate();
 	END IF;
+	IF LENGTH(PDescription)=0 THEN
+	update List set Description = 'Aucune description' where idList = PIdList;
+	update List set ModifyDate = sysdate();
+	END IF;	
 END |
 
 CREATE or replace PROCEDURE setDeadlineTask(PIdTask INTEGER, PNewDate Date)
@@ -165,6 +173,10 @@ BEGIN
 		update Step set Description = PDescription where  IdStep = PIdStep;
 		update List set ModifyDate = sysdate();
 	END IF;
+	IF LENGTH(PDescription)=0 THEN
+	update List set Description = 'Aucune description' where idList = PIdList;
+	update List set ModifyDate = sysdate();
+	END IF;	
 	
 END |
 
@@ -339,6 +351,7 @@ DROP TRIGGER IF EXISTS BuVerifyDeadlineTask |
 
 DROP TRIGGER IF EXISTS BiVerifyNotNullEmailPassword |
 DROP TRIGGER IF EXISTS BuVerifyNotNullEmailPassword |
+
 
 CREATE TRIGGER BiVerifyTitleList 
 BEFORE INSERT ON list 
