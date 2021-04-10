@@ -17,6 +17,7 @@ function MenuLists(props){
   useEffect( () => {
     async function request(){
       let parameters = new URLSearchParams()
+      parameters.append("IdUser",user.authTokens.IdUser);
 
       const options = {
         method: 'POST',
@@ -26,10 +27,12 @@ function MenuLists(props){
       const data = await reponse.json()
 
       if(reponse.ok){
-        setInformations(data.lists)
+        console.log(data.lists)
+        //setInformations(data.lists)
         
       }else{
-        setError(data.message)
+        console.log(data.lists)
+        //setError(data.message)
       }
     }
     request()
@@ -37,8 +40,9 @@ function MenuLists(props){
     
   return ( 
     <div id="menu-lists">
-      {console.log(informations)}
-      {console.log(error)}
+      {console.log('iformations',informations)}
+      {console.log('error',error)}
+      {console.log('user',user)}
         <span className="title">Mes listes</span>
         <ul>
           <List />

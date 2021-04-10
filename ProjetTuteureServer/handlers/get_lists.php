@@ -1,15 +1,15 @@
 <?php
 
 header("Content-Type: application/json; charset=UTF-8");
-if(!isset($_SESSION["user"])){
+http_response_code(400);
+if(!isset($_GET["IdUser"])){
     echo json_encode(["message" => "utilisateur inconnu"]);
     exit;
 }
 
 $request = $db->prepare("SELECT getUserLists(?)");
-$request->execute([$_SESSION["user"]["IdUser"]]);
+$request->execute([$_GET["IdUser"]]);
 $lists = $request->fetch();
-var_dump($lists);
 
 if(!$lists[0]){
     echo json_encode(["message" => "Vous n'avez pas encore cree de liste"]);
@@ -23,14 +23,12 @@ for($i = 0; $i < sizeof($list); $i++){
         "IdList" => $list[$i][0],
         "Title" => $list[$i][1],
         "Description" => $list[$i][2],
-        "CreatedDate" => $list[$i][3],
+        "CreatedDate" => $list[$i][3]
     ];
 }
 
-
-$message = "";
-
+http_response_code(200);
 echo json_encode([
     "lists" => $list,
-    "message" => $message,
+    "message" => "",
 ]);

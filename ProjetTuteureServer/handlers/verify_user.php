@@ -29,9 +29,10 @@ if(!$ok){
     ]);
     exit;
 }
-http_response_code(200);
+
 $_SESSION["user"] = $user;
 
+http_response_code(200);
 echo json_encode([
     "message" => "OK",
     "user" => $user,
