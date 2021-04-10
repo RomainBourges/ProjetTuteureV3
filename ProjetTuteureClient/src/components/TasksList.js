@@ -57,20 +57,11 @@ async function request(){
         <div id="content">
             <h1>Taches</h1>
             <ul id="tasks-list">
-<<<<<<< HEAD
-            {console.log("tasksInfos : ", tasksInfos)}
-            {console.log("erreur : ", error)}
-            {console.log("tasksInfos.IdTask : ", tasksInfos.IdTask)}
-            {json2array(tasksInfos).map(taskInfo => 
-                <li key={taskInfo.IdTask}><Task tasksInfos={taskInfo}/></li>,
-            )
-=======
             {console.log("tasks : ", tasksInfos)}
             {
               json2array(tasksInfos).map((taskInfo, index) => 
                 <li key={index}><Task tasksInfos={taskInfo}/></li>
               )
->>>>>>> a193cdfb93a5ced7174ab2624a61438b2594c56e
             }
             <li>
                 <AddTask />
