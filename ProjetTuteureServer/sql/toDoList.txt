@@ -284,7 +284,7 @@ BEGIN
 	
     DECLARE C_Liste 
 		CURSOR FOR 
-			Select CONCAT_WS('¤', IdTask, ListId, Title, Description, CONVERT(CheckTask, CHAR(1)), CONVERT(Deadline,VARCHAR(10)), CONVERT(CreationDate,VARCHAR(10)), CONVERT(ModifyDate,VARCHAR(10))) 
+			Select CONCAT_WS('¤', IdTask, ListId, Title, Description, CONVERT(CheckTask, CHAR(1)), CONVERT(Deadline,VARCHAR(10)), CONVERT(CreationDate,VARCHAR(10))) 
 			from Task 
 			where listId = PListId 
 			order by Deadline DESC; 
