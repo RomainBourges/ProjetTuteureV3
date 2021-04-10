@@ -4,14 +4,14 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import List from "./List"
 import { ReactComponent as PlusIcon } from '../assets/plus.svg'
+import { json2array } from "../utils"
 
 
 
 function MenuLists(props){
-  //const existingTokens = JSON.parse(localStorage.getItem("tokens"))
   const user=useAuth()
-  
-  const [informations, setInformations] = useState("");
+
+  const [listInfos, setInformations] = useState("");
   const [error, setError] = useState("");
 
   useEffect( () => {
@@ -23,42 +23,33 @@ function MenuLists(props){
         method: 'POST',
         body: parameters
       }
-      const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_lists', options)
+      const reponse = await fetch('http://localhost:80/ProjetTuteureServer/get_lists', options)
       const data = await reponse.json()
 
       if(reponse.status === 200){
         setInformations(data.lists)
-        
+
       }else{
         setError(data.message)
       }
     }
     request()
-  }, [informations])   
+  }, [listInfos])
 
-  function json2array(json){
-    var result = [];
-    var keys = Object.keys(json);
-    keys.forEach(function(key){
-        result.push(json[key]);
-    });
-    return result;
-}
-    
   return ( 
     <div id="menu-lists">
         <span className="title">Mes listes</span>
         <ul>
           {
-            json2array(informations).map(information => 
-              <List informations={information}/>
+            json2array(listInfos).map(listInfo => 
+              <List listInfos={listInfo}/>
           )
           }
 
         </ul>
         <a href="/" id="menu-new-list" title="Nouvelle liste"><PlusIcon />Nouvelle liste</a>
     </div>
-    
+
     )
   }
 
