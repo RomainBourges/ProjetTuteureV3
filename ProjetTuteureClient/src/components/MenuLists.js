@@ -10,7 +10,7 @@ import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 function MenuLists(props){
   //const existingTokens = JSON.parse(localStorage.getItem("tokens"))
   const user=useAuth()
-
+  
   const [informations, setInformations] = useState("");
   const [error, setError] = useState("");
 
@@ -26,36 +26,38 @@ function MenuLists(props){
       const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_lists', options)
       const data = await reponse.json()
 
-      if(reponse.ok){
-        console.log(data.lists)
-        //setInformations(data.lists)
+      if(reponse.status === 200){
+        setInformations(data.lists)
         
       }else{
-        console.log(data.lists)
-        //setError(data.message)
+        setError(data.message)
       }
     }
     request()
   }, [])   
+
+  function json2array(json){
+    var result = [];
+    var keys = Object.keys(json);
+    keys.forEach(function(key){
+        result.push(json[key]);
+    });
+    return result;
+}
     
   return ( 
     <div id="menu-lists">
-      {console.log('iformations',informations)}
+      {console.log('informations',json2array(informations))}
       {console.log('error',error)}
       {console.log('user',user)}
         <span className="title">Mes listes</span>
         <ul>
-          <List />
-          <List />
-          <List />
-          <List />
-          <List />
-          <List />
-          <List />
-          <List />
-          <List />
-          <List />
-          <List />
+          {
+            json2array(informations).map(information => 
+              <List informations={information}/>
+          )
+          }
+
         </ul>
         <a href="/" id="menu-new-list" title="Nouvelle liste"><PlusIcon />Nouvelle liste</a>
     </div>

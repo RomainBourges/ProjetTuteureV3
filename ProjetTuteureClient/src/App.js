@@ -4,6 +4,7 @@ import Home from "./components/Home.js"
 import { useState } from "react"
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 import { AuthContext } from "./context/auth";
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
     <Router>
       <Switch>
         <PrivateRoute exact path="/" component={Home} />
-        <Route exact path="/login" component={Login}/>
+        <PublicRoute exact path="/login" component={Login}/>
         <PrivateRoute exact path="/home" component={Home} />
         <PrivateRoute exact path="/home/:list" component={Home} />
       </Switch>
