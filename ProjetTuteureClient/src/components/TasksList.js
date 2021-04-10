@@ -43,7 +43,7 @@ async function request(){
   if(error !== ""){
     return (
       <div id="content">
-          <h1>nom</h1>
+          <h1>Taches</h1>
           <ul id="tasks-list">
           <p>{error}</p>
           <li>
@@ -55,7 +55,7 @@ async function request(){
   }else{
     return (
         <div id="content">
-            <h1>nom</h1>
+            <h1>Taches</h1>
             <ul id="tasks-list">
             {console.log("tasks : ", tasksInfos)}
             {

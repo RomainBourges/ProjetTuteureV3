@@ -19,8 +19,8 @@ function Task(props){
             </div>
             <ul>
                 <li className="number">a faire</li>
-                <li className="deadline">Échéance: {props.tasksInfos.Deadline}</li>
-                <li className="note">Note</li>
+                <li className="deadline">Échéance: {props.tasksInfos.DeadLine}</li>
+                <li className="note">{props.tasksInfos.Description}</li>
             </ul>
             <a href="/" title="Supprimer la tâche">
                 <DeleteIcon />
