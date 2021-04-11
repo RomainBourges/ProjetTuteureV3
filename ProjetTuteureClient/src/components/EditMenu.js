@@ -6,6 +6,42 @@ import Step from "./Step"
 
 function EditMenu(props){
     const [error, setError] = useState("")
+    const [stepsInfos, setStepsInfos] = useState("")
+    const [selectedTask, setSelectedTask] = useState(props.selectedTask)
+
+    function displaySteps(){
+        const display = "";
+        for(var i =0; i < stepsInfos.length; i++){
+            display += <Step index={i} stepInfos={stepsInfos[i]} />
+        }
+        return display;
+    }
+
+    async function request(){
+        let parameters = new URLSearchParams()
+        parameters.append("IdTask",props.tasksInfos[selectedTask].IdTask);
+    
+        const options = {
+          method: 'POST',
+          body: parameters
+        }
+        const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_steps', options)
+        const data = await reponse.json()
+        if(reponse.status === 200){
+          setStepsInfos(data.steps)
+        }
+        if(reponse.status === 201){
+          setStepsInfos("")
+          setError(data.message)
+        }else{
+          setError(data.message)
+        }
+      }
+
+    useEffect(() => {
+        setSelectedTask(props.selectedTask)
+        request()
+    }, [props.selectedTask])
 
       if(props.stepInfos !== ""){
         return(
@@ -17,11 +53,7 @@ function EditMenu(props){
         <div className="block">
             <label>Étapes</label>
             <ul>
-                {
-                    json2array(props.stepsInfos).map((step, index) => 
-                    <Step index={index} stepInfos={step} />
-                  )
-                }
+                {displaySteps()}
                 <li className="step-container">
                     <input type="text" className="step" placeholder="Nouvelle étape" />
                     <div className="step-actions">

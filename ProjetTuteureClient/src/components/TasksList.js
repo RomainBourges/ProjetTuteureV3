@@ -6,14 +6,16 @@ import { json2array } from "../utils";
 import EditMenu from "./EditMenu";
 
 function TasksList (props){
-const idList = useParams().list
-const [tasksInfos, setTasksInfos] = useState("");
-const [error, setError] = useState("");
-const [selectedTask, setSelectedTask] = useState("");
-const [stepsInfos, setStepsInfos] = useState("")
+  const idList = useParams().list
+  const [tasksInfos, setTasksInfos] = useState("");
+  const [error, setError] = useState("");
+  const [selectedTask, setSelectedTask] = useState("");
 
-useEffect( () => {
-async function request(){
+  useEffect( () => {
+    request()
+  }, [])
+
+  async function request(){
 
     if(idList){
       setError("")
@@ -25,25 +27,22 @@ async function request(){
         body: parameters
       }
       
-      const reponse = await fetch('http://localhost:80/ProjetTuteureServer/get_tasks', options)
+      const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_tasks', options)
       
       const data = await reponse.json()
       if(reponse.status === 200){
         setTasksInfos(data.tasks)
-
+        console.log(data.tasks)
       }
       else{
         setError(data.message)
       }
     }
   }
-  request()
-}, [])
 
   function handleTaskClick(index){
     if(index === selectedTask){
       setSelectedTask("");
-      setStepsInfos("")
     }else{
       setSelectedTask(index);
       //request()
@@ -68,14 +67,15 @@ async function request(){
       setStepsInfos("")
       setError(data.message)
     }else{
-      setError(data.message)
+      return <p className="error">{error}</p>
     }
   }
-*/
 
+
+  */
 
   
-  /*if(error !== ""){
+  if(error !== ""){
     return (
       <div id="content">
         <div className="wrapper-tasks-list content-full">
@@ -88,7 +88,7 @@ async function request(){
             </ul></div>
       </div>
   )
-  }else if(selectedTask === ""){*/
+  }else if(selectedTask === ""){
     return (
     <div id="content">
           <div className="wrapper-tasks-list content-full">
@@ -106,26 +106,24 @@ async function request(){
           </div>
         </div>
     )
- /* }else{
-    return (
-        <div id="content">
-          <div className="wrapper-tasks-list">
-            <h1>Taches</h1>
-            <ul id="tasks-list">
-            {
+   
+          }return (
+            <div id="content">
+              <div className="wrapper-tasks-list">
+                <h1>Taches</h1>
+                <ul id="tasks-list">
+                {
               json2array(tasksInfos).map((taskInfo, index) => 
                 <li key={index}><Task tasksInfos={taskInfo} onClick={() => {handleTaskClick(index)}}/></li>
               )
             }
-            <li>
-                <AddTask />
-            </li>
-            </ul>
-          </div>
-            <EditMenu stepsInfos={stepsInfos} taskInfos={tasksInfos[selectedTask]}/>
-        </div>
-    )
-  }*/
+                <li>
+                    <AddTask />
+                </li>
+                </ul>
+              </div>
+            </div>
+          ) 
 }
 
 export default TasksList

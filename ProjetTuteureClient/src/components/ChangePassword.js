@@ -1,6 +1,6 @@
 function ChangePasword(props){
     return (
-
+        null
     )
 }
 
