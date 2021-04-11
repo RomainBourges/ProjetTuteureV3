@@ -70,22 +70,9 @@ function TasksList (props){
       return <p className="error">{error}</p>
     }
   }
-*/
 
-  return (
-    <div id="content">
-      <div className="wrapper-tasks-list">
-        <h1>Taches</h1>
-        <ul id="tasks-list">
-        {displayTasksList()}
-        <li>
-            <AddTask />
-        </li>
-        </ul>
-      </div>
-        {displayEditMenu()}
-    </div>
-  ) 
+
+  */
 
   
   if(error !== ""){
@@ -120,7 +107,23 @@ function TasksList (props){
         </div>
     )
    
-          }
+          }return (
+            <div id="content">
+              <div className="wrapper-tasks-list">
+                <h1>Taches</h1>
+                <ul id="tasks-list">
+                {
+              json2array(tasksInfos).map((taskInfo, index) => 
+                <li key={index}><Task tasksInfos={taskInfo} onClick={() => {handleTaskClick(index)}}/></li>
+              )
+            }
+                <li>
+                    <AddTask />
+                </li>
+                </ul>
+              </div>
+            </div>
+          ) 
 }
 
 export default TasksList
