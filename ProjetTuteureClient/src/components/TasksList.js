@@ -87,8 +87,6 @@ async function request(){
           <div className="wrapper-tasks-list">
             <h1>Taches</h1>
             <ul id="tasks-list">
-            {console.log("selectedTask : ", selectedTask)}
-            {console.log("tasksInfos : ", tasksInfos[0])}
             {
               json2array(tasksInfos).map((taskInfo, index) => 
                 <li key={index}><Task tasksInfos={taskInfo} onClick={() => {handleTaskClick(index)}}/></li>
@@ -99,9 +97,12 @@ async function request(){
             </li>
             </ul>
           </div>
+          
             <EditMenu taskInfos={tasksInfos[selectedTask]}/>
+            {console.log("coucou")}
         </div>
-    )}
+    )
+  }
 }
 
 export default TasksList

@@ -2,7 +2,7 @@ import { ReactComponent as RemoveIcon } from '../assets/remove.svg'
 
 function Step(props){
     return (
-        <li className="step-container">
+        <li key={props.index} className="step-container">
             <div className="step">
                 <div className="icon">
                     <div className="circle checked"></div>
