@@ -25,7 +25,7 @@ async function request(){
         body: parameters
       }
       
-      const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_tasks', options)
+      const reponse = await fetch('http://localhost:80/ProjetTuteureServer/get_tasks', options)
       
       const data = await reponse.json()
       if(reponse.status === 200){
