@@ -1,5 +1,5 @@
 <?php
-$config["uri_prefix"] = "/ProjetTuteureV2/ProjetTuteureServer";
+$config["uri_prefix"] = "/ProjetTuteureServer";
 
 $config["db_host"] = "localhost";
 $config["db_name"] = "toDoList";

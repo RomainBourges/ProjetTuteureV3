@@ -19,7 +19,7 @@ function Task(props){
         method: 'POST',
         body: parameters
         }
-        const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/update_check_task', options)
+        const reponse = await fetch('http://localhost:80/ProjetTuteureServer/update_check_task', options)
         const data = await reponse.json()
         if(reponse.status === 200){
             setCheckTask(checkTask === "0" ? "1" : "0")

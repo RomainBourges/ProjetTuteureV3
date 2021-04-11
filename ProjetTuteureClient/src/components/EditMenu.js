@@ -25,7 +25,7 @@ function EditMenu(props){
           method: 'POST',
           body: parameters
         }
-        const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_steps', options)
+        const reponse = await fetch('http://localhost:80/ProjetTuteureServer/get_steps', options)
         const data = await reponse.json()
         if(reponse.status === 200){
           setStepsInfos(data.steps)
