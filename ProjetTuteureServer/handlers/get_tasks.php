@@ -15,6 +15,7 @@ if(!$tasks[0]){
     exit;
 }
 
+
 $task = explode("£", $tasks[0]);
 for($i = 0; $i < sizeof($task); $i++){
     $task[$i] = explode("¤", $task[$i]);

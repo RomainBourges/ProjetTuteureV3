@@ -9,7 +9,8 @@ function TasksList (props){
 const idList = useParams().list
 const [tasksInfos, setTasksInfos] = useState("");
 const [error, setError] = useState("");
-const [selectedTask, setSelectedTask] = useState(null);
+const [selectedTask, setSelectedTask] = useState("");
+const [stepsInfos, setStepsInfos] = useState("")
 
 useEffect( () => {
 async function request(){
@@ -27,7 +28,6 @@ async function request(){
       const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_tasks', options)
       
       const data = await reponse.json()
-      {console.log("data : ", data)}
       if(reponse.status === 200){
         setTasksInfos(data.tasks)
 
@@ -42,13 +42,40 @@ async function request(){
 
   function handleTaskClick(index){
     if(index === selectedTask){
-      setSelectedTask(null);
+      setSelectedTask("");
+      setStepsInfos("")
     }else{
       setSelectedTask(index);
+      request()
+    }
+    
+  }
+
+  async function request(){
+    let parameters = new URLSearchParams()
+    parameters.append("IdTask",tasksInfos[selectedTask].IdTask);
+
+    const options = {
+      method: 'POST',
+      body: parameters
+    }
+    const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_steps', options)
+    const data = await reponse.json()
+    if(reponse.status === 200){
+      setStepsInfos(data.steps)
+    }
+    if(reponse.status === 201){
+      setStepsInfos("")
+      setError(data.message)
+    }else{
+      setError(data.message)
     }
   }
+
+
+
   
-  if(error !== ""){
+  /*if(error !== ""){
     return (
       <div id="content">
         <div className="wrapper-tasks-list content-full">
@@ -61,14 +88,12 @@ async function request(){
             </ul></div>
       </div>
   )
-  }else if(selectedTask === null){
+  }else if(selectedTask === ""){*/
     return (
     <div id="content">
           <div className="wrapper-tasks-list content-full">
             <h1>Taches</h1>
             <ul id="tasks-list">
-            {console.log("selectedTask : ", selectedTask)}
-            {console.log("tasksInfos : ", tasksInfos[0])}
             {
               json2array(tasksInfos).map((taskInfo, index) => 
                 <li key={index}><Task tasksInfos={taskInfo} onClick={() => {handleTaskClick(index)}}/></li>
@@ -81,7 +106,7 @@ async function request(){
           </div>
         </div>
     )
-  }else{
+ /* }else{
     return (
         <div id="content">
           <div className="wrapper-tasks-list">
@@ -97,12 +122,10 @@ async function request(){
             </li>
             </ul>
           </div>
-          
-            <EditMenu taskInfos={tasksInfos[selectedTask]}/>
-            {console.log("coucou")}
+            <EditMenu stepsInfos={stepsInfos} taskInfos={tasksInfos[selectedTask]}/>
         </div>
     )
-  }
+  }*/
 }
 
 export default TasksList

@@ -1,17 +1,34 @@
+import { useState } from 'react'
 import { ReactComponent as DeleteIcon } from '../assets/delete.svg'
 
 function Task(props){
-    const classChecked = "circle "
-    const classBarred = "name"
+    const [classChecked, setClassChecked] = useState("circle ")
+    const [classBarred, setClassBarred] = useState("name ")
+    const [checkTask, setCheckTask] = useState(props.tasksInfos.CheckTask)
 
     if(props.tasksInfos.CheckTask === "1"){
-        classChecked = "circle checked"
-        classBarred = "name done"
+        setClassChecked = "circle checked"
+        setClassBarred = "name done"
+    }
+
+    async function clicked(){
+        let parameters = new URLSearchParams()
+        parameters.append("IdTask", props.tasksInfos.IdTask);
+
+        const options = {
+        method: 'POST',
+        body: parameters
+        }
+        const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/update_check_task', options)
+        const data = await reponse.json()
+        if(reponse.status === 200){
+            setCheckTask(checkTask === "0" ? "1" : "0")
+        }
     }
 
     return (
         <div className="task" onClick={props.onClick}>
-            <div className="icon">
+            <div className="icon" onClick={clicked}>
                 <div className={classChecked}></div>
             </div>
             <div className={classBarred}>

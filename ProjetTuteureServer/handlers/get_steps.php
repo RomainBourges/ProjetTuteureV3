@@ -12,7 +12,7 @@ $request->execute([$_POST["IdTask"]]);
 $steps = $request->fetch();
 
 if($steps[0] === null){
-    http_response_code(200);
+    http_response_code(201);
     echo json_encode(["message" => "Vous n'avez pas encore cree d'etape"]);
     exit;
 }
