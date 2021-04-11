@@ -45,28 +45,32 @@ function TasksList (props){
       setSelectedTask("");
     }else{
       setSelectedTask(index);
-      request()
+      //request()
     }
     
   }
+/*
+  async function request(){
+    let parameters = new URLSearchParams()
+    parameters.append("IdTask",tasksInfos[selectedTask].IdTask);
 
-  function displayTasksList(){
-    if(tasksInfos !== null){
-      var display = "";
-        for(var i =0; i < tasksInfos.length; i++){
-            display += <Task index={i} tasksInfos={tasksInfos[i]} />
-        }
-        return display;
+    const options = {
+      method: 'POST',
+      body: parameters
+    }
+    const reponse = await fetch('http://localhost:80/ProjetTuteureServer/get_steps', options)
+    const data = await reponse.json()
+    if(reponse.status === 200){
+      setStepsInfos(data.steps)
+    }
+    if(reponse.status === 201){
+      setStepsInfos("")
+      setError(data.message)
     }else{
       return <p className="error">{error}</p>
     }
   }
-
-  function displayEditMenu(){
-    if(selectedTask !== ""){
-      return <EditMenu selectedTask={selectedTask} taskInfos={tasksInfos[selectedTask]}/>
-    }
-  }
+*/
 
   return (
     <div id="content">

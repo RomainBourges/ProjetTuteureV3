@@ -6,7 +6,7 @@ function Task(props){
     const [classBarred, setClassBarred] = useState("name ")
     const [checkTask, setCheckTask] = useState(props.tasksInfos.CheckTask)
 
-    if(props.tasksInfos.CheckTask === "1"){
+    if(props.tasksInfos.CheckTask===1){
         setClassChecked = "circle checked"
         setClassBarred = "name done"
     }
@@ -19,7 +19,7 @@ function Task(props){
         method: 'POST',
         body: parameters
         }
-        const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/update_check_task', options)
+        const reponse = await fetch('http://localhost:80/ProjetTuteureServer/update_check_task', options)
         const data = await reponse.json()
         if(reponse.status === 200){
             setCheckTask(checkTask === "0" ? "1" : "0")

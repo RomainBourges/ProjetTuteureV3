@@ -118,13 +118,17 @@ BEGIN
 	END IF;	
 END |
 
-CREATE or replace PROCEDURE SetCheckTask(PIdTask INTEGER, PValue Integer) 
+CREATE or replace PROCEDURE SetCheckTask(PIdTask INTEGER)
 BEGIN 
-	update Task set CheckTask=PValue where IdTask=PIdTask;
-	IF (PVALUE=1) THEN
-	update Task set ModifyDate=sysdate() Where IdTask=PIdTask;
+DECLARE
+V_Check Integer;
+Select CheckTask Into V_Check From Task where idTask=PIdTask;
+
+	
+	IF (V_Check=1) THEN
+		update Task set CheckTask=0 where IdTask=PIdTask;
 	ELSE
-		update Task set ModifyDate=NULL Where IdTask=PIdTask;
+		update Task set CheckTask=1 where IdTask=PIdTask;
 	END IF;
 END |
 
