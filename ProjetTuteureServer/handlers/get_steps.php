@@ -10,9 +10,9 @@ if(!isset($_POST["IdTask"])){
 $request = $db->prepare("SELECT getTaskSteps(?);");
 $request->execute([$_POST["IdTask"]]);
 $steps = $request->fetch();
-var_dump($steps);
 
 if($steps[0] === null){
+    http_response_code(200);
     echo json_encode(["message" => "Vous n'avez pas encore cree d'etape"]);
     exit;
 }
@@ -25,12 +25,12 @@ for($i = 0; $i < sizeof($step); $i++){
         "Taskid" => $step[$i][1],
         "Title" => $step[$i][2],
         "Description" => $step[$i][3],
-        "CheckStep" => $step[$i][4],
+        "CheckStep" => $step[$i][4]
     ];
 }
 
 http_response_code(200);
 echo json_encode([
     "steps" => $step,
-    "message" => "",
+    "message" => "ok",
 ]);
