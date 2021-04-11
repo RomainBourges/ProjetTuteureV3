@@ -63,12 +63,9 @@ function Login(props){
           <p className="error text-center">{error}</p>
           <button type="submit" onClick={handleSubmit}>
             Connexion
-          </button>
+          </button> 
           <div className="text-center">
-            <a href="oubli_mdp.html" title="J'ai oublié mon mot de passe">J'ai oublié mon mot de passe</a>
-          </div>
-          <div className="text-center">
-            <a href="login.html" title="Pas encore de compte ? Inscrivez-vous !">Pas encore de compte ? Inscrivez-vous !</a>
+            <a href="/signup" title="Pas encore de compte ? Inscrivez-vous !">Pas encore de compte ? Inscrivez-vous !</a>
           </div>
         </form>
       </div>
