@@ -84,7 +84,7 @@ function TasksList (props){
   ) 
 
   
-  /*if(error !== ""){
+  if(error !== ""){
     return (
       <div id="content">
         <div className="wrapper-tasks-list content-full">
@@ -114,7 +114,7 @@ function TasksList (props){
             </ul>
           </div>
         </div>
-    )*/
+    )
    
   
 }
