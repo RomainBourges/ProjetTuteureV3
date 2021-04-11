@@ -38,7 +38,6 @@ function MenuLists(props){
   }, [])
 
     async function addList(e){
-      e.preventDefault()
       let parameters = new URLSearchParams()
       parameters.append("IdUser",user.authTokens.IdUser)
       parameters.append("Title", newListeTitle)
@@ -69,7 +68,7 @@ function MenuLists(props){
           <a href="" id="menu-new-list" title="Nouvelle liste" onClick={(e)=>{e.preventDefault()}}><PlusIcon />Nouvelle liste</a>
           <form >
             <input type="text" name="Title" onChange={(e)=>{setNewListTitle(e.target.value)}}></input>
-            <input type="text" name="Description" onChange={(e)=>{setNewListDescription(e.target.value)}}></input>
+            {/*<input type="text" name="Description" onChange={(e)=>{setNewListDescription(e.target.value)}}></input>*/}
             <button type="submit" onClick={addList} >
             Ajouter
             </button>

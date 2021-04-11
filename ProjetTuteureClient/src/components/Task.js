@@ -6,7 +6,7 @@ function Task(props){
     const [classBarred, setClassBarred] = useState("name ")
     const [checkTask, setCheckTask] = useState(props.tasksInfos.CheckTask)
 
-    if(props.tasksInfos.CheckTask === "1"){
+    if(props.tasksInfos.CheckTask === 1){
         setClassChecked = "circle checked"
         setClassBarred = "name done"
     }

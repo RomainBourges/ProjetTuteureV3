@@ -1,5 +1,6 @@
 
 import { useAuth } from "../context/auth";
+import { ReactComponent as Home } from '../assets/home.svg'
 
 function MenuTitle(props){
     const user=useAuth()
@@ -7,6 +8,7 @@ function MenuTitle(props){
     return(
         <div className="menu-title">
             <button id="close-menu-button"></button>
+            <Home></Home>
             <a href="/home" id="user-email">{user.authTokens.Email}</a>
         </div>
     )

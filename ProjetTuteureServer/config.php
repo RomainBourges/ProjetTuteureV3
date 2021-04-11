@@ -3,7 +3,7 @@ $config["uri_prefix"] = "/ProjetTuteureServer";
 
 $config["db_host"] = "localhost";
 $config["db_name"] = "toDoList";
-$config["db_port"] = "3306";
+$config["db_port"] = "3307";
 $config["db_user"] = "root";
 $config["db_password"] = "";
 

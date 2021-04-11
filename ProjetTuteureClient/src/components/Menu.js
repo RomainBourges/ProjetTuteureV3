@@ -13,7 +13,6 @@ function Menu(props){
         <MenuTitle />
         <MenuLists />
         <MenuBottom />
-        {console.log(list)}
     </div>
   )
 }
