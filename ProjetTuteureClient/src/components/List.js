@@ -35,7 +35,7 @@ function List(props){
       method: 'POST',
       body: parameters
       }
-      const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/delete_list', options)
+      const reponse = await fetch('http://localhost:80/ProjetTuteureServer/delete_list', options)
       const data = await reponse.json()
       if(reponse.status === 200){
         console.log(data)
