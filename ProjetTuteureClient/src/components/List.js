@@ -5,6 +5,7 @@ import { ReactComponent as DeleteIcon } from '../assets/delete.svg'
 import store from "../store";
 
 function List(props){
+  const [selected, setSelected] = useState(false);
 
   return ( 
             <a href="/" title="" onClick={dispatchSelectedList} >{props.listInfos.Title}
@@ -23,7 +24,7 @@ function List(props){
   
     function dispatchSelectedList(e) {
       e.preventDefault()
-      const list = props.listInfos;
+      const list = props.listInfos.IdList;
       store.dispatch(setSelectedList(list));
     }
 

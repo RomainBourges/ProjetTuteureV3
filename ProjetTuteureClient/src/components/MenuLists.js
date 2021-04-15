@@ -8,6 +8,7 @@ import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 
 
 function MenuLists(props){
+  //const existingTokens = JSON.parse(localStorage.getItem("tokens"))
   const user=useAuth()
   const [listInfos, setInformations] = useState("");
   const [newListeTitle, setNewListTitle] = useState("");
@@ -55,6 +56,8 @@ function MenuLists(props){
       }else{
 
       }
+      
+    
     }
     
     return ( 

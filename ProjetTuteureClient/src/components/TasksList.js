@@ -10,16 +10,17 @@ function TasksList (props){
   const idList = store.getState().list;
   const [tasksInfos, setTasksInfos] = useState("");
   const [error, setError] = useState("");
-  const selectedTask = store.getState().task
+  const [selectedTask, setSelectedTask] = useState("");
 
   useEffect( () => {
     request()
   }, [idList])
 
+  
 
   async function request(){
 
-    if(idList !== ""){
+    if(idList){
       setError("")
       let parameters = new URLSearchParams()
       parameters.append("IdList",idList);
@@ -42,8 +43,15 @@ function TasksList (props){
     }
   }
 
+  function handleTaskClick(index,e){
+    if(index === selectedTask){
+      setSelectedTask("");
+    }else{
+      setSelectedTask(index);
+    }
+  }
   
-  if(store.getState().task === ""){
+  if(selectedTask === ""){
     return (
       <div id="content">
         <div className="wrapper-tasks-list content-full">
@@ -52,7 +60,7 @@ function TasksList (props){
             <li>{error}</li>
           {
             json2array(tasksInfos).map((taskInfo, index) => 
-              <li key={index}><Task tasksInfos={taskInfo} /></li>
+              <li key={index}><Task tasksInfos={taskInfo} onClick={(e) => {handleTaskClick(index,e)}}/></li>
             )
           }
           <li>
@@ -70,7 +78,7 @@ function TasksList (props){
           <ul id="tasks-list">
           {
             json2array(tasksInfos).map((taskInfo, index) => 
-              <li key={index}><Task tasksInfos={taskInfo} /></li>
+              <li key={index}><Task tasksInfos={taskInfo} onClick={() => {handleTaskClick(index)}}/></li>
             )
           }
           <li>
@@ -78,7 +86,7 @@ function TasksList (props){
           </li>
           </ul>
         </div>
-        <EditMenu  />
+        <EditMenu taskInfos={tasksInfos[selectedTask]} />
       </div>
     ) 
   }
