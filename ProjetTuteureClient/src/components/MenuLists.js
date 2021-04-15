@@ -8,11 +8,9 @@ import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 
 
 function MenuLists(props){
-  //const existingTokens = JSON.parse(localStorage.getItem("tokens"))
   const user=useAuth()
   const [listInfos, setInformations] = useState("");
   const [newListeTitle, setNewListTitle] = useState("");
-  const [newListeDescription, setNewListDescription] = useState("");
   const [error, setError] = useState("");
 
   useEffect( () => {
@@ -24,7 +22,7 @@ function MenuLists(props){
         method: 'POST',
         body: parameters
       }
-      const reponse = await fetch('http://localhost:80/ProjetTuteureServer/get_lists', options)
+      const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_lists', options)
       const data = await reponse.json()
       
       if(reponse.status === 200){
@@ -32,26 +30,31 @@ function MenuLists(props){
         
       }else{
         setError(data.message)
+        console.log(data.message)
       }
     }
     request()
   }, [])
 
     async function addList(e){
+      e.preventDefault()
       let parameters = new URLSearchParams()
       parameters.append("IdUser",user.authTokens.IdUser)
       parameters.append("Title", newListeTitle)
-      parameters.append("Description", newListeDescription)
 
       const options = {
-      method: 'POST',
-      body: parameters
+        method: 'POST',
+        body: parameters
       }
-      const reponse = await fetch('http://localhost:80/ProjetTuteureServer/add_list', options)
-      console.log("reponse :",reponse)
+      const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/add_list', options)
       const data = await reponse.json()
+
+      if(reponse.ok){
+        console.log("reponse :",reponse)
       console.log("data :",data)
-    
+      }else{
+
+      }
     }
     
     return ( 
@@ -66,9 +69,8 @@ function MenuLists(props){
 
           </ul>
           <a href="" id="menu-new-list" title="Nouvelle liste" onClick={(e)=>{e.preventDefault()}}><PlusIcon />Nouvelle liste</a>
-          <form >
+          <form action="/">
             <input type="text" name="Title" onChange={(e)=>{setNewListTitle(e.target.value)}}></input>
-            {/*<input type="text" name="Description" onChange={(e)=>{setNewListDescription(e.target.value)}}></input>*/}
             <button type="submit" onClick={addList} >
             Ajouter
             </button>

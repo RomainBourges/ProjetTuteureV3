@@ -1,13 +1,13 @@
 import './App.css'
 import Login from "./components/Login.js"
-import Home from "./components/Home.js"
 import SignUp from "./components/SignUp.js"
-import Settings from "./components/Settings.js"
 import { useState } from "react"
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import { AuthContext } from "./context/auth";
+import PrivateApp from './PrivateApp'
+
 
 function App() {
   const existingTokens = JSON.parse(localStorage.getItem("tokens"));
@@ -22,16 +22,14 @@ function App() {
     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
     <Router>
       <Switch>
-        <PrivateRoute exact path="/" component={Home} />
+        <PublicRoute exact path="/" component={Login} />
         <PublicRoute exact path="/login" component={Login}/>
         <PublicRoute exact path="/signup" component={SignUp}/>
-        <PrivateRoute exact path="/home" component={Home} />
-        <PrivateRoute exact path="/settings" component={Settings} />
-        <PrivateRoute exact path="/home/:list" component={Home} />
-        <PrivateRoute exact path="/home/:list/:task" component={Home} />
+        <PrivateRoute path="/app" component={PrivateApp} />
       </Switch>
     </Router> 
     </AuthContext.Provider>
   )
 }
+
 export default App;

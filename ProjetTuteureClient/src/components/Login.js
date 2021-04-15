@@ -33,12 +33,11 @@ function Login(props){
           method: 'POST',
           body: parameters
         };
-        const reponse = await fetch('http://localhost:80/ProjetTuteureServer/verify_user', options)
+        const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/verify_user', options)
         const data = await reponse.json()
 
         if(reponse.ok){
           setUser(data.user);
-          
         }else{
           setError(data.message);
         }
@@ -48,7 +47,7 @@ function Login(props){
   if(user !== null){
     setAuthTokens(user);
     return (
-      <Redirect to="/home"/>
+      <Redirect to="/app/home"/>
     )
   }
     
