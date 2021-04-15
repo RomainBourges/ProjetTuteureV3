@@ -11,7 +11,10 @@ $request->execute([$_POST["IdList"]]);
 $tasks = $request->fetch();
 
 if(!$tasks[0]){
-    echo json_encode(["message" => "Vous n'avez pas encore cree de tache"]);
+    http_response_code(200);
+    echo json_encode([
+        "tasks"=>"",
+        "message" => "Vous n'avez pas encore créé de tache"]);
     exit;
 }
 

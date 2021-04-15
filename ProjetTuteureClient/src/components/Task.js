@@ -34,6 +34,24 @@ useEffect(() => {
         }
     }
 
+
+    async function deleteTask(){
+        let parameters = new URLSearchParams()
+        parameters.append("IdTask", props.tasksInfos.IdTask);
+    
+        const options = {
+        method: 'POST',
+        body: parameters
+        }
+        const reponse = await fetch('http://localhost:80/ProjetTuteureServer/delete_task', options)
+        const data = await reponse.json()
+        if(reponse.status === 200){
+          console.log(data)
+        }else{
+            console.log('data:', data.message)
+        }
+      }
+
     return (
         <div className="task" onClick={props.onClick}>
             <div className="icon" onClick={clicked}>
@@ -47,9 +65,7 @@ useEffect(() => {
                 <li className="deadline">Échéance: {props.tasksInfos.DeadLine}</li>
                 <li className="note">{props.tasksInfos.Description}</li>
             </ul>
-            <a href="" title="Supprimer la tâche" onClick={(e) => {e.stopPropagation(); e.preventDefault()}}>
-                <DeleteIcon />
-            </a>
+                <DeleteIcon onClick={deleteTask}/>
         </div>
     )
 }

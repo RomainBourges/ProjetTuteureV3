@@ -35,6 +35,7 @@ function TasksList (props){
       const data = await reponse.json()
       if(reponse.status === 200){
         setTasksInfos(data.tasks)
+        setError(data.message)
       }
       else{
         setError(data.message)
