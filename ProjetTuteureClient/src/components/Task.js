@@ -5,6 +5,7 @@ function Task(props){
     const [classChecked, setClassChecked] = useState("circle ")
     const [classBarred, setClassBarred] = useState("name ")
     const [checkTask, setCheckTask] = useState(props.tasksInfos.CheckTask)
+    const [error, setError] = useState("");
 
     
 useEffect(() => {
@@ -45,10 +46,8 @@ useEffect(() => {
         }
         const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/delete_task', options)
         const data = await reponse.json()
-        if(reponse.status === 200){
-          console.log(data)
-        }else{
-            console.log('data:', data.message)
+        if(!reponse.ok){
+            setError(data.message) 
         }
       }
 
