@@ -52,7 +52,7 @@ async function addTask(e){
       method: 'POST',
       body: parameters
     }
-    const reponse = await fetch('http://localhost:80/ProjetTuteureServer/add_task', options)
+    const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/add_task', options)
     const data = await reponse.json()
 
     if(!reponse.ok){
