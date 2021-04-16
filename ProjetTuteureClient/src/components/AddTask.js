@@ -58,8 +58,6 @@ async function addTask(e){
     if(!reponse.ok){
         setError(data.message)
     }
-
-    window.location.reload(true)
   }
 }
 

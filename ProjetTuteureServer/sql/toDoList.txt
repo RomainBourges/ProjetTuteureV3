@@ -147,8 +147,8 @@ BEGIN
 		update Task set ModifyDate = sysdate();
 	END IF;
 	IF LENGTH(PDescription)=0 THEN
-	update List set Description = 'Aucune description' where idList = PIdList;
-	update List set ModifyDate = sysdate();
+	update Task set Description = 'Aucune description' where IdTask = PIdTask;
+	update Task set ModifyDate = sysdate();
 	END IF;	
 END |
 
@@ -466,7 +466,7 @@ CREATE TRIGGER BiVerifyDeadlineTask
 BEFORE INSERT ON Task 
 FOR EACH ROW 
 BEGIN 
-IF New.Deadline<sysdate() THEN 
+IF New.Deadline<CURRENT_DATE THEN 
 signal sqlstate '20002' SET MESSAGE_TEXT = 'la tache ne peut etre terminee avant sa date de creation'; 
 END IF; 
 END |
@@ -475,7 +475,7 @@ CREATE TRIGGER BuVerifyDeadlineTask
 BEFORE UPDATE ON Task 
 FOR EACH ROW 
 BEGIN 
-IF New.Deadline<sysdate() THEN 
+IF New.Deadline<CURRENT_DATE THEN 
 signal sqlstate '20002' SET MESSAGE_TEXT = 'la tache ne peut etre terminee avant sa date de creation'; 
 END IF; 
 END |

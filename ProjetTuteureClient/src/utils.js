@@ -5,4 +5,8 @@ export function json2array(json){
             result.push(json[key]);
         });
     return result;
+
+    
+
 }
+export default json2array;
