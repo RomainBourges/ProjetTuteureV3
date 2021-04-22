@@ -15,7 +15,7 @@ function MenuBottom(props){
     <div id="menu-bottom">
       <ul>
         <li>
-          <a href="/app/settings" id="menu-settings" title="Paramètres">Paramètres</a>
+          <NavLink to="/settings" id="menu-settings" title="Paramètres">Paramètres</NavLink>
         </li>
         <li>
           <NavLink to="/login" id="menu-logout" onClick={logOut} title="Déconnexion">Déconnexion</NavLink>

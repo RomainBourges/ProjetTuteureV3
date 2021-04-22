@@ -31,7 +31,7 @@ async function addStep(e){
       method: 'POST',
       body: parameters
     }
-    const reponse = await fetch('http://localhost:80/ProjetTuteureServer/add_step', options)
+    const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/add_step', options)
     const data = await reponse.json()
 
     if(!reponse.ok){

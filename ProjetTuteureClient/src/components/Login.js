@@ -47,7 +47,7 @@ function Login(props){
   if(user !== null){
     setAuthTokens(user);
     return (
-      <Redirect to="/app/home"/>
+      <Redirect to="/home"/>
     )
   }
     

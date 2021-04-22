@@ -7,7 +7,7 @@ import EditMenu from "./EditMenu";
 import store from "../store";
 
 function TasksList (props){
-  const idList = store.getState().list;
+  const idList = store.getState().lists;
   const [tasksInfos, setTasksInfos] = useState("");
   const [error, setError] = useState("");
   const [selectedTask, setSelectedTask] = useState("");
@@ -51,19 +51,27 @@ function TasksList (props){
       setSelectedTask(index);
     }
   }
+
+  function displayTasks () {
+    if(tasksInfos !== null){
+    return(
+      
+        json2array(tasksInfos).map((taskInfo, index) => 
+          <li key={index}><Task tasksInfos={taskInfo} onClick={(e) => {handleTaskClick(index,e)}}/></li>
+        )
+      
+    )
+    }
+  }
   
-  if(selectedTask === ""){
+  if(selectedTask === "" || tasksInfos === ""){
     return (
       <div id="content">
         <div className="wrapper-tasks-list content-full">
           <h1>Taches</h1>
           <ul id="tasks-list">
             <li>{error}</li>
-          {
-            json2array(tasksInfos).map((taskInfo, index) => 
-              <li key={index}><Task tasksInfos={taskInfo} onClick={(e) => {handleTaskClick(index,e)}}/></li>
-            )
-          }
+          {displayTasks()}
           <li>
               <AddTask />
           </li>
@@ -77,11 +85,7 @@ function TasksList (props){
         <div className="wrapper-tasks-list">
           <h1>Taches</h1>
           <ul id="tasks-list">
-          {
-            json2array(tasksInfos).map((taskInfo, index) => 
-              <li key={index}><Task tasksInfos={taskInfo} onClick={() => {handleTaskClick(index)}}/></li>
-            )
-          }
+          {displayTasks()}
           <li>
               <AddTask />
           </li>

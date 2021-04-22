@@ -1,5 +1,5 @@
-import ChangeMail from "./ChangeMail.js"
-import ChangePassword from "./ChangePassword.js"
+import ChangeMail from "./ChangeMail"
+import ChangePassword from "./ChangePassword"
 import Menu from "./Menu.js"
 
 function Settings(props){

@@ -3,8 +3,9 @@ import { createStore } from "redux";
 import reducer from "../reducers"
 
 const initialState = {
-    list: "",
-    task: ""
+    lists: "",
+    tasks: "",
+    steps: ""
   }
 
 const store = createStore(reducer, initialState); 

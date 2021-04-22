@@ -17,15 +17,17 @@ function List(props){
 
     function setSelectedList (value) {
       return {
-         type: "SET_LIST",
+         type: "SET_LISTS",
          value: value
        }
     }
   
     function dispatchSelectedList(e) {
+      console.log("store list avant :", store.getState().lists)
       e.preventDefault()
       const list = props.listInfos.IdList;
       store.dispatch(setSelectedList(list));
+      console.log("store list après :", store.getState().lists)
     }
 
     async function deleteList(){

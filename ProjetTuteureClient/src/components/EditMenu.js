@@ -51,10 +51,7 @@ function EditMenu(props){
         window.location.reload(true) 
       }
     
-      
-
-    useEffect( () => {
-        async function request(){
+       async function request(){
           let parameters = new URLSearchParams()
           parameters.append("IdTask",props.taskInfos.IdTask);
 
@@ -62,15 +59,18 @@ function EditMenu(props){
             method: 'POST',
             body: parameters
           }
-          const reponse = await fetch('http://localhost:80/ProjetTuteureServer/get_steps', options)
+          const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/get_steps', options)
           const data = await reponse.json()
           if(reponse.status === 200){
             setSteps(data.steps)
           }else{
             setError(data.message)
-          }
+          
         }
-        request() 
+        }
+
+    useEffect( () => {
+            request()
       }, [props.taskInfos])
 
 

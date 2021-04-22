@@ -7,6 +7,8 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import { AuthContext } from "./context/auth";
 import PrivateApp from './PrivateApp'
+import Home from './components/Home'
+import Settings from './components/Settings'
 
 
 function App() {
@@ -25,7 +27,11 @@ function App() {
         <PublicRoute exact path="/" component={Login} />
         <PublicRoute exact path="/login" component={Login}/>
         <PublicRoute exact path="/signup" component={SignUp}/>
-        <PrivateRoute path="/app" component={PrivateApp} />
+        <PrivateRoute exact path="/" component={Home} />
+        <PrivateRoute exact path="/home" component={Home} />
+        <PrivateRoute exact path="/settings" component={Settings} />
+        <PrivateRoute path="/home/:list" component={Home} />
+        <PrivateRoute path="/home/:list/:task" component={Home} />
       </Switch>
     </Router> 
     </AuthContext.Provider>

@@ -31,7 +31,7 @@ function Step(props){
         method: 'POST',
         body: parameters
         }
-        const reponse = await fetch('http://localhost:80/ProjetTuteureServer/delete_step', options)
+        const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/delete_step', options)
         const data = await reponse.json()
         if(!reponse.ok){
             setError(data.message)

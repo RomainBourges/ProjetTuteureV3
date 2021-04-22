@@ -1,16 +1,21 @@
 export default(state, action) => {
     switch(action.type){
-        case 'SET_LIST':
+        case 'SET_LISTS':
             return {
                 ...state,
-                list: action.value
+                lists: action.value
               };
             break;
-        case 'SET_TASK':
+        case 'SET_TASKS':
             return {
                 ...state,
-                task: action.value
+                tasks: action.value
               };
+              case 'SET_STEPS':
+                return {
+                    ...state,
+                    steps: action.value
+                  };
         default:
             return state
     }

@@ -59,15 +59,23 @@ function MenuLists(props){
       
     
     }
+
+    function displayLists () {
+      if(listInfos !== null){
+      return(
+      json2array(listInfos).map((listInfo, index) => 
+                <li key={index}><List listInfos={listInfo}/></li>
+            )
+      )
+      }
+    }
     
     return ( 
       <div id="menu-lists">
           <span className="title">Mes listes</span>
           <ul>
             {
-              json2array(listInfos).map((listInfo, index) => 
-                <li key={index}><List listInfos={listInfo}/></li>
-            )
+              displayLists()
             }
 
           </ul>
