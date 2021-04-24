@@ -47,8 +47,8 @@ function EditMenu(props){
         if(reponse.ok){
             setError(data.message)
         }
-        else
-        window.location.reload(true) 
+        //else
+        //window.location.reload(true) 
       }
     
        async function request(){

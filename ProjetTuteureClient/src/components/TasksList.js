@@ -1,14 +1,17 @@
 import Task from "./Task"
 import AddTask from "./AddTask"
-import { useParams } from "react-router"
 import { useEffect, useState } from "react";
 import { json2array } from "../utils";
 import EditMenu from "./EditMenu";
-import store from "../store";
+import { useDispatch, useSelector } from "react-redux";
+import { setTasks } from "../actions";
 
 function TasksList (props){
-  const idList = store.getState().lists;
-  const [tasksInfos, setTasksInfos] = useState("");
+  const dispatch = useDispatch();
+  const idList = useSelector(state => state.selectedList)
+  //const idList = store.getState().selectedList;
+  const tasksInfos = useSelector(state => state.tasks);
+  //const [tasksInfos, setTasksInfos] = useState("");
   const [error, setError] = useState("");
   const [selectedTask, setSelectedTask] = useState("");
 
@@ -34,33 +37,35 @@ function TasksList (props){
       
       const data = await reponse.json()
       if(reponse.status === 200){
-        setTasksInfos(data.tasks)
+        dispatch(setTasks(data.tasks))
+        //setTasksInfos(data.tasks)
         setError(data.message)
       }
       else{
         setError(data.message)
-        setTasksInfos("")
+        //setTasksInfos("")
       }
     }
   }
 
-  function handleTaskClick(index,e){
+  /*function handleTaskClick(index,e){
     if(index === selectedTask){
       setSelectedTask("");
     }else{
       setSelectedTask(index);
     }
-  }
+  }*/
 
   function displayTasks () {
+    console.log("displayTasks ", tasksInfos)
     if(tasksInfos !== null){
     return(
       
         json2array(tasksInfos).map((taskInfo, index) => 
-          <li key={index}><Task tasksInfos={taskInfo} onClick={(e) => {handleTaskClick(index,e)}}/></li>
+          //<li key={index}><Task tasksInfos={taskInfo} onClick={(e) => {handleTaskClick(index,e)}}/></li>
+          <li key={taskInfo.IdTask}><Task tasksInfos={taskInfo} /></li>
         )
-      
-    )
+        )
     }
   }
   

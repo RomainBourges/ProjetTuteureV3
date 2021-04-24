@@ -63,10 +63,10 @@ function MenuLists(props){
     function displayLists () {
       if(listInfos !== null){
       return(
-      json2array(listInfos).map((listInfo, index) => 
-                <li key={index}><List listInfos={listInfo}/></li>
-            )
-      )
+        json2array(listInfos).map((listInfo, index) => 
+                  <li key={listInfo.IdList}><List listInfos={listInfo}/></li>
+              )
+        )
       }
     }
     
