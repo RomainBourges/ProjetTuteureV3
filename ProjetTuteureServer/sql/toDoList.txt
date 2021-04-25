@@ -132,6 +132,20 @@ Select CheckTask Into V_Check From Task where idTask=PIdTask;
 	END IF;
 END |
 
+CREATE or replace PROCEDURE SetCheckStep(PIdStep INTEGER)
+BEGIN 
+DECLARE
+V_Check Integer;
+Select CheckStep Into V_Check From Step where idStep=PIdStep;
+
+	
+	IF (V_Check=1) THEN
+		update Step set CheckStep=0 where IdStep=PIdStep;
+	ELSE
+		update Step set CheckStep=1 where IdStep=PIdStep;
+	END IF;
+END |
+
 CREATE or replace PROCEDURE setTask(PIdTask INTEGER, PTitleNew Varchar(30), PDescription Varchar(300), PDeadline DATE)
 BEGIN
 	IF LENGTH(PTitleNew)>0 THEN

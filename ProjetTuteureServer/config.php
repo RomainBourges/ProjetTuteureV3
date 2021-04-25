@@ -25,8 +25,10 @@ $routes = [
     "/update_task" => "update_task",
     "/update_step" => "update_step",
     "/update_check_task" => "update_check_task",
+    "/update_check_step" => "update_check_step",
     "/get_lists" => "get_lists",
     "/get_tasks" => "get_tasks",
+    "/get_task" => "get_task",
     "/get_steps" => "get_steps",
     "/error" => "error",
 ];

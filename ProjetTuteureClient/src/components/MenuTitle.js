@@ -1,7 +1,6 @@
 
 import { useAuth } from "../context/auth";
 import { ReactComponent as HomeIcon } from '../assets/home.svg'
-import store from "../store";
 
 function MenuTitle(props){
     const user=useAuth()

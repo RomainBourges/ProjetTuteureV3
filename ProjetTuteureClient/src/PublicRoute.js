@@ -13,7 +13,7 @@ function PublicRoute({ component: Component, ...rest }) {
             !authTokens ? (
               <Component {...props} />
             ) : (
-              <Redirect to="/app/home" />
+              <Redirect to="/home" />
             )
           }
         />

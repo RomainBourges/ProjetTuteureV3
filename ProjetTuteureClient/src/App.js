@@ -6,10 +6,8 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import { AuthContext } from "./context/auth";
-import PrivateApp from './PrivateApp'
 import Home from './components/Home'
 import Settings from './components/Settings'
-import store from './store'
 
 
 
@@ -32,8 +30,9 @@ function App() {
         <PrivateRoute exact path="/" component={Home} />
         <PrivateRoute exact path="/home" component={Home} />
         <PrivateRoute exact path="/settings" component={Settings} />
-        <PrivateRoute path="/home/:list" component={Home} />
-        <PrivateRoute path="/home/:list/:task" component={Home} />
+        <PrivateRoute exact path="/home/:list" component={Home} />
+        <PrivateRoute exact path="/home/:list/:task" component={Home} />
+        <PrivateRoute exact path="/home/:list/:task/:show" component={Home} />
       </Switch>
     </Router> 
     </AuthContext.Provider>

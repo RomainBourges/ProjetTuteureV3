@@ -38,23 +38,24 @@ function MenuLists(props){
   }, [])
 
     async function addList(e){
-      e.preventDefault()
-      let parameters = new URLSearchParams()
-      parameters.append("IdUser",user.authTokens.IdUser)
-      parameters.append("Title", newListeTitle)
+      if(newListeTitle){
+        let parameters = new URLSearchParams()
+        parameters.append("IdUser",user.authTokens.IdUser)
+        parameters.append("Title", newListeTitle)
 
-      const options = {
-        method: 'POST',
-        body: parameters
+        const options = {
+          method: 'POST',
+          body: parameters
+        }
+        const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/add_list', options)
+        const data = await reponse.json()
+
+        if(reponse.ok){
+          window.location.href = "/home"
+        }
       }
-      const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/add_list', options)
-      const data = await reponse.json()
-
-      if(reponse.ok){
-        console.log("reponse :",reponse)
-      console.log("data :",data)
-      }else{
-
+      else{
+        e.preventDefault()
       }
       
     
@@ -80,10 +81,10 @@ function MenuLists(props){
 
           </ul>
           <a href="" id="menu-new-list" title="Nouvelle liste" onClick={(e)=>{e.preventDefault()}}><PlusIcon />Nouvelle liste</a>
-          <form action="/">
+          <form action="/home">
             <input type="text" name="Title" onChange={(e)=>{setNewListTitle(e.target.value)}}></input>
             <button type="submit" onClick={addList} >
-            Ajouter
+              Ajouter
             </button>
           </form>
       </div>

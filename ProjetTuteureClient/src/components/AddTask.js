@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { useParams } from 'react-router';
 import { ReactComponent as PlusIcon } from '../assets/plus.svg'
-import store from '../store'
+import Login from './Login';
 
 function AddTask(props){
-
+    const IdList = useParams().list
     const [Title, setTitle] = useState("");
     const [Description, setDescription] = useState("");
     const [Deadline, setDeadline] = useState("");
@@ -28,22 +29,28 @@ function AddTask(props){
                     <PlusIcon />
                 </a>
             </div>
-            <form action="/" >
-                    <input type="text" name="Title" placeholder="Title" onChange={handleChangeTitle}></input>
-                    <input type="text" name="Description" placeholder="Description" onChange={handleChangeDescription}/>
-                    <input type="date" name="Deadline" placeholder="Deadline"onChange={handleChangeDeadline} />
-                    <button type="submit" onClick={addTask} >
-                        Ajouter
-                    </button>
-                </form>
+            <form action={`/home/${IdList}`} >
+                <input type="text" name="Title" placeholder="Title" onChange={handleChangeTitle}></input>
+                <input type="text" name="Description" placeholder="Description" onChange={handleChangeDescription}/>
+                <input type="date" name="Deadline" placeholder="Deadline"onChange={handleChangeDeadline} />
+                <button type="submit" onClick={addTask} >
+                    Ajouter
+                </button>
+                <p>{error}</p>
+            </form>
         </div>
     )
 
 
 async function addTask(e){
     e.preventDefault()
+    if(!Title || !Description || !Deadline){
+        
+        setError("Veuillez remplir tous les champs")
+    }else{
+    console.log("date : ", Date.now())
     let parameters = new URLSearchParams()
-    parameters.append("IdList", store.getState().list)
+    parameters.append("IdList", IdList)
     parameters.append("Title", Title)
     parameters.append("Description", Description)
     parameters.append("Deadline", Deadline)
@@ -54,10 +61,14 @@ async function addTask(e){
     }
     const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/add_task', options)
     const data = await reponse.json()
-
-    if(!reponse.ok){
+    if(reponse.ok){
+        window.location.href = `/home/${IdList}`
+    }
+    else{
+        console.log("erreur : ", data.message)
         setError(data.message)
     }
+}
   }
 }
 

@@ -1,6 +1,8 @@
 function ChangePasword(props){
+	
+
     return (
-        <form action="" method="POST" class="settings-form">
+        <form action="" method="POST" className="settings-form">
 			<h2>Mot de passe</h2>
 			<label>Mot de passe actuel</label>
 			<input type="password" name="password" placeholder="password" />

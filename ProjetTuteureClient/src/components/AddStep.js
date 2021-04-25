@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { ReactComponent as PlusIcon } from '../assets/plus.svg'
-import store from '../store'
+import { useParams } from "react-router";
 
 function AddStep(props){
-
+    const idList = useParams().list
+    const idTask = useParams().task
     const [Title, setTitle] = useState("");
     const [error, setError] = useState("");
   
@@ -24,7 +25,7 @@ function AddStep(props){
 async function addStep(e){
     e.preventDefault()
     let parameters = new URLSearchParams()
-    parameters.append("IdTask", props.taskInfos.IdTask)
+    parameters.append("IdTask", idTask)
     parameters.append("Title", Title)
 
     const options = {
@@ -34,8 +35,8 @@ async function addStep(e){
     const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/add_step', options)
     const data = await reponse.json()
 
-    if(!reponse.ok){
-        setError(data.message)
+    if(reponse.ok){
+        window.location.href = `/home/${idList}/${idTask}/show`
     }
   }
 }

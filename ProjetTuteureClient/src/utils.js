@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+
 
 export function json2array(json){
     var result = [];
@@ -43,7 +43,6 @@ export async function updateTasks(idList){
         
         const data = await reponse.json()
         if(reponse.status === 200){
-          useDispatch(setTasks(data.tasks))
           //setTasksInfos(data.tasks)
           //setError(data.message)
         }

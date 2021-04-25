@@ -4,8 +4,11 @@ import { ReactComponent as PlusIcon } from '../assets/plus.svg'
 import Step from "./Step"
 import { json2array } from "../utils"
 import AddStep from './AddStep'
+import { useParams } from 'react-router'
 
 function EditMenu(props){
+    const idTask = useParams().task
+    const idList = useParams().list
     const [error, setError] = useState("")
     const [Title, setTitle] = useState("");
     const [Description, setDescription] = useState("");
@@ -28,27 +31,28 @@ function EditMenu(props){
 
     async function updateDataTask(e){
         e.preventDefault()
-        let parameters = new URLSearchParams()
-        parameters.append("IdTask", props.taskInfos.IdTask)
-        parameters.append("Title", Title)
-        parameters.append("Description", Description)
-        parameters.append("Deadline", Deadline)
-        
-    
-        const options = {
-          method: 'POST',
-          body: parameters
-        }
-        
-        const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/update_task', options)
-        console.log('reponse', reponse)
-        const data = await reponse.json()
+        if(Title || Description || Deadline){
+            let parameters = new URLSearchParams()
+            parameters.append("IdTask", idTask)
+            parameters.append("Title", Title)
+            parameters.append("Description", Description)
+            parameters.append("Deadline", Deadline)
+            
+            const options = {
+            method: 'POST',
+            body: parameters
+            }
+            
+            const reponse = await fetch('http://localhost:80/ProjetTuteureV2/ProjetTuteureServer/update_task', options)
+            const data = await reponse.json()
 
-        if(reponse.ok){
-            setError(data.message)
+            if(reponse.ok){
+                window.location.href = `/home/${idList}/${idTask}/show`
+            }else{
+                console.log("update erreur : ", data.message)
+                setError(data.message)
+            }
         }
-        //else
-        //window.location.reload(true) 
       }
     
        async function request(){
@@ -79,7 +83,7 @@ function EditMenu(props){
                 <div id="menu-task-edit">
                     <div className="block">
                             <label>Titre</label>
-                            <input type="text" placeholder={props.taskInfos.Title} />
+                            <input type="text" placeholder={props.taskInfos.Title} onChange={handleChangeTitle} />
                         </div>
                     <div className="block">
                         <label>Étapes</label>
@@ -94,14 +98,14 @@ function EditMenu(props){
                     </div>
                     <div className="block">
                         <label>Échéance</label>
-                        <input type="text" placeholder={props.taskInfos.DeadLine} />
+                        <input type="date" placeholder={props.taskInfos.DeadLine} onChange={handleChangeDeadline} />
                     </div>
                     <div className="block">
                         <label>Notes</label>
-                        <textarea placeholder={props.taskInfos.Description}></textarea>
+                        <textarea onChange={handleChangeDescription} placeholder={props.taskInfos.Description}></textarea>
                     </div>
                     <div className="double-buttons">
-                        <button>Enregistrer</button>
+                        <button onClick={updateDataTask}>Enregistrer</button>
                         <button className="optional">Annuler</button>
                     </div>
                 </div>
@@ -112,16 +116,16 @@ function EditMenu(props){
             <div id="menu-task-edit">
                 <div className="block">
                     <label>Titre</label>
-                    <input type="text" onChange={handleChangeTitle}/>
+                    <input type="text" placeholder={props.taskInfos.Title} onChange={handleChangeTitle}/>
                 </div>
                 <AddStep key={0} taskInfos={props.taskInfos}></AddStep>
                 <div className="block">
                     <label>Échéance</label>
-                    <input type="date" name="Deadline" onChange={handleChangeDeadline} />
+                    <input type="date" placeholder={props.taskInfos.DeadLine} name="Deadline" onChange={handleChangeDeadline} />
                 </div>
                 <div className="block">
                     <label>Notes</label>
-                    <textarea onChange={handleChangeDescription}></textarea> 
+                    <textarea onChange={handleChangeDescription} placeholder={props.taskInfos.Description}></textarea> 
                 </div>
                 <div className="double-buttons">
                     <button onClick={updateDataTask}>Enregistrer</button>
