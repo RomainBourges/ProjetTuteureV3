@@ -18,7 +18,7 @@
 
 <h2>Bugs :</h2>
 <ul>
-  <li>Il faut parfois cliqué 2 fois sur une tâche pour que le menu d'édition s'affiche</li>
+  <li>Il faut parfois cliquer 2 fois sur une tâche pour que le menu d'édition s'affiche</li>
 </ul>
 
 <h2>A faire :</h2>
