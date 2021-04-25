@@ -1,6 +1,15 @@
 # ProjetTuteureV3
 <h1>ToDoList</h1>
 
+<h2>Installation :</h2>
+<ul>
+  <li>Importer le projet dans un dossier ProjetTuteureV2</li>
+  <li>Installer les dépendances dans le dossier ProjetTuteureClient à l'aide de la commande npm install</li>
+  <li>Importer la base de données à partir du fichier todolist.txt dans le dossier ProjetTuteureServer/sql</li>
+  <li>Importer les fonctions et triggers de la base de données à partir du fichier todolist.txt dans le dossier ProjetTuteureServer/sql</li>
+  <li>Modifier si nécessaire les configurations dans le fichier config.php dans le dossier ProjetTuteureServer</li>
+</ul>
+
 <h2>Ce qui fonctionne :</h2>
 <ul>
   <li>Création d'un compte</li>
