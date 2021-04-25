@@ -26,4 +26,5 @@
 <ul>
   <li>Traitements de la page Paramètres</li>
   <li>Envoi d'un mail pour confirmer l'inscription</li>
+  <li>Version portable de l'application (CSS Mobile)</li>
 </ul>
