@@ -5,6 +5,9 @@
 <ul>
   <li>Création d'un compte</li>
   <li>Connexion avec un compte existant</li>
+  <li>Déconnexion de l'application</li>
+  <li>Accès à l'application uniquement si connecté</li>
+  <li>Impossible d'accéder aux pages Connexion ou Inscription lorsque connecté</li>
   <li>Ajout d'une liste/tâche/étape</li>
   <li>Suppression d'une liste/tâche/étape</li>
   <li>Modification d'une tâche sélectionnée</li>
