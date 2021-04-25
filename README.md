@@ -9,6 +9,7 @@
   <li>Accès à l'application uniquement si connecté</li>
   <li>Impossible d'accéder aux pages Connexion ou Inscription lorsque connecté</li>
   <li>Ajout d'une liste/tâche/étape</li>
+  <li>Cliquer sur une tâche/étape pour la terminer (ou revenir à l'état En Cours)</li>
   <li>Suppression d'une liste/tâche/étape</li>
   <li>Modification d'une tâche sélectionnée</li>
   <li>Gestion des erreurs pour la connexion, l'inscription et l'ajout d'une tâche</li>
