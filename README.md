@@ -16,6 +16,11 @@
   <li>Affichage page Paramètres</li>
 </ul>
 
+<h2>Bugs :</h2>
+<ul>
+  <li>Il faut parfois cliqué 2 fois sur une tâche pour que le menu d'édition s'affiche</li>
+</ul>
+
 <h2>A faire :</h2>
 <ul>
   <li>Traitements de la page Paramètres</li>
